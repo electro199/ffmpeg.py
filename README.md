@@ -1,7 +1,5 @@
 # FFmpeg.py
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg) 
-
 FFmpeg Wrapper for Python
 This module provides a Pythonic interface to FFmpeg, allowing users to construct and execute FFmpeg commands programmatically.
 It simplifies video and audio processing tasks such as format conversion, filtering, and transcoding.
