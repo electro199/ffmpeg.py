@@ -181,7 +181,7 @@ class FFmpeg:
 
         return ("-map", stream, *flags)
 
-    def compile(self, overwrite=False, quite=False) -> list[str]:
+    def compile(self, overwrite) -> list[str]:
         """
         Generate the command
         This fuction gather and combine all of the different part of the command.
@@ -201,18 +201,15 @@ class FFmpeg:
         else:
             self.add_global_flag("-n")
 
-        if not quite:
-            self.add_global_flag("-stats")
-            self.add_global_flag("-loglevel", "warning")
-        else:
-            self.add_global_flag("-loglevel", "error")
+        self.add_global_flag("-loglevel", "error")
+
 
         command = [self.ffmpeg_path, *self._global_flags]
         # First flatten filters to add inputs automatically from last node order matters here
         filters = []
         for output in self._outputs:
-            for map in output.maps:
-                filters.extend(self.build_filter(map.node))
+            for map_ in output.maps:
+                filters.extend(self.build_filter(map_.node))
 
         if inputs := self.build_inputs():
             command.extend(inputs)
@@ -227,7 +224,7 @@ class FFmpeg:
             command.extend(build_flags(output.kvflags))
             command.append(output.path)
 
-        return command
+        return list(map(str, command))
 
     def output(self, *maps, path, **kvflags) -> "FFmpeg":
         """Create output for the command with map and output specific flags and the path for the output"""
@@ -237,29 +234,30 @@ class FFmpeg:
     def run(
         self,
         progress_callback: Optional[Callable[[dict], None]] = None,
+        progress_period: float = 0.5,
         overwrite: bool = True,
-        quite: bool = False,
     ) -> None:
         """
         Run the FFmpeg command.
 
         Args:
             progress_callback: a function that can be used to track progress of the process running data can be mix of N/A and actual values
-            path (str): Path to output file.
+            progress_period: Set period at which progress_callback is called
+            path: Path to output file.
             overwrite: overwrite the output if already exists
-            quite: disable any output from ffmpeg process 
 
         """
 
-        stdout = subprocess.DEVNULL
+        stdout = None
         stderr = subprocess.PIPE
 
         # If progress_callback: function is provided capture the outputs
         if progress_callback:
             stdout = subprocess.PIPE
             self.add_global_flag("-progress", "pipe:1", "-nostats")
+            self.add_global_flag("-stats_period", progress_period)
 
-        command = self.compile(overwrite=overwrite, quite=quite)
+        command = self.compile(overwrite=overwrite)
         logger.debug(f"Running: {command}")  # Debugging output
 
         # Start FFmpeg process
@@ -272,6 +270,8 @@ class FFmpeg:
         )
 
         if progress_callback:
+            assert process.stdout is not None
+
             # Read progress data
             progress_data = {}
 
@@ -280,10 +280,6 @@ class FFmpeg:
                 if "=" in line:
                     key, value = line.split("=", 1)
                     progress_data[key] = parse_value(value.strip())
-
-                # if "N/A" in line:
-                #     progress_data.clear()  # Reset for next update
-                #     continue
 
                 if "progress" in progress_data:
                     if progress_callback:
