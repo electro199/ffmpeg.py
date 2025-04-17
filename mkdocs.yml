@@ -1,0 +1,19 @@
+site_name: ffmpeg
+
+
+theme:
+  name: "material"
+
+plugins:
+  - search
+  - autorefs
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: true
+
+nav:
+  - Home: index.md
+  - FFmpeg command: useful_info.md
+

@@ -187,8 +187,7 @@ class FFmpeg:
         This fuction gather and combine all of the different part of the command.
 
         command structure should be like:
-
-        ffmpeg [global flags] [input flags -i input] [-filter_complex [filter]] [-map streamid output flags output]
+            `ffmpeg [global flags] [input flags -i input] [-filter_complex [filter]] [-map streamid output flags output]`
 
         """
 
@@ -243,7 +242,6 @@ class FFmpeg:
         Args:
             progress_callback: a function that can be used to track progress of the process running data can be mix of N/A and actual values
             progress_period: Set period at which progress_callback is called
-            path: Path to output file.
             overwrite: overwrite the output if already exists
 
         """

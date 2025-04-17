@@ -68,8 +68,7 @@ class Transition(BaseFilter):
         self, name: str, offset: float = 0, duration: float = 1, expression=None
     ):
         """
-        Combine two videos with transition
-        
+        Combine two videos with transition.Note: requires same size and fps and aspect ration
         """
         super().__init__("xfade")
 

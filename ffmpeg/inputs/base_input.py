@@ -7,7 +7,7 @@ class BaseInput(ABC):
         self.flags = {}
 
     @abstractmethod
-    def build_input_flags(self) -> str:
+    def build_input_flags(self) -> list[str]:
         raise NotImplementedError()
 
     def build(self):
