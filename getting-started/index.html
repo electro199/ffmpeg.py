@@ -629,7 +629,7 @@ this provide useful flags that are applied to input in ffmpeg command.</p>
 <li>then set <code>frame_rate</code> at 60</li>
 </ul>
 <h1 id="filters">Filters</h1>
-<p>Filters can be used with  <a href="/api/#ffmpeg.filters.apply"><code>apply</code></a> or <a href="/api/#ffmpeg.filters.apply2"><code>apply2</code></a>, apply2 is for multi output filters like Split and Concat.</p>
+<p>Filters can be used with  <a href="/ffmpeg.py/api/#ffmpeg.filters.apply"><code>apply</code></a> or <a href="/ffmpeg.py/api/#ffmpeg.filters.apply2"><code>apply2</code></a>, apply2 is for multi output filters like Split and Concat.</p>
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><code><span class="n">clip</span> <span class="o">=</span> <span class="n">InputFile</span><span class="p">(</span><span class="s2">&quot;image.png&quot;</span><span class="p">)</span>
 <span class="n">clip_scaled</span> <span class="o">=</span> <span class="n">apply</span><span class="p">(</span><span class="n">Scale</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="n">clip</span><span class="p">)</span>
