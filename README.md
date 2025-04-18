@@ -43,7 +43,7 @@ ffmpeg -version
 #### Linux
 For Debian/Ubuntu:
 ```sh
-sudo apt update && sudo apt install ffmpeg
+sudo apt install ffmpeg
 ```
 
 ### Usage

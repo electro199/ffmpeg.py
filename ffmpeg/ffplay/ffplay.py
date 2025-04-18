@@ -1,4 +1,3 @@
-
 import subprocess
 
 def ffplay(file_path, width=None, height=None, fullscreen=False, disable_audio=False, disable_video=False,
