@@ -77,7 +77,7 @@ The above code is easy to understand which works like:
 - then set `frame_rate` at 60
 
 # Filters
-Filters can be used with  [`apply`](/api/#ffmpeg.filters.apply) or [`apply2`](/api/#ffmpeg.filters.apply2), apply2 is for multi output filters like Split and Concat.
+Filters can be used with  [`apply`](/ffmpeg.py/api/#ffmpeg.filters.apply) or [`apply2`](/ffmpeg.py/api/#ffmpeg.filters.apply2), apply2 is for multi output filters like Split and Concat.
 
 Usage:
 
