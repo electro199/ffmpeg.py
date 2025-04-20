@@ -87,6 +87,7 @@ clip_scaled = apply(Scale(1000, 1000), clip)
 
 ```
 
-Lets scale the image and then use it
+Lets scale the image and then use it:
+
 
 At end we make a FFmpeg and add a output with two stream mapping. The `Map` add stream(s) to a output file in this way we can add multiple streams to one output, for more complex use case see Advance Usage like Filtering, Multiple outputs or what is progress_callback.
