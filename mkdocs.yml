@@ -47,5 +47,5 @@ nav:
     - advance-usage/advance-usage.md
     - advance-usage/useful_info.md
   - API Reference: api.md
-  - FAQ: faq.md
-  - Contributing: contributing.md
+  # - FAQ: faq.md
+  # - Contributing: contributing.md
