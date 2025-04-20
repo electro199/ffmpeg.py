@@ -71,14 +71,6 @@ FFmpeg.py support complex Filters and can be used with  [`apply`](https://electr
 
 
 ```py
-clip = InputFile("image.png")
-clip_scaled = apply(Scale(1000, 1000), clip)
-
-=======
-## Advaced Usage
-Lets use ffmpeg powerfull features to scale and overlay.
-
-```py
 from ffmpeg.ffmpeg import FFmpeg
 from ffmpeg.inputs import InputFile, FileInputOptions
 from ffmpeg.filters import apply, Scale, OverlayFilter
