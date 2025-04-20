@@ -46,6 +46,11 @@ For Debian/Ubuntu:
 sudo apt install ffmpeg
 ```
 
+
+## Documention 
+
+Documention read docs [here](https://electro199.github.io/ffmpeg.py/).
+
 ### Usage
 
 For simple media conversion :
@@ -62,6 +67,12 @@ export(
 ).run()
 
 ```
-## Documention 
+# Filters
+FFmpeg.py support complex Filters and can be used with  [`apply`](https://electro199.github.io/ffmpeg.py/api/#ffmpeg.filters.apply) or [`apply2`](https://electro199.github.io/ffmpeg.py/api/#ffmpeg.filters.apply2), apply2 is for multi output filters like Split and Concat.
 
-Documention is work in progress
+
+```py
+clip = InputFile("image.png")
+clip_scaled = apply(Scale(1000, 1000), clip)
+
+```
