@@ -41,7 +41,7 @@ Lets make a video logo overlay both scaled.
 ```python
 
 from ffmpeg import FFmpeg, Map, InputFile, VideoFile
-from ffmpeg.filters import apply, Scale, OverlayFilter
+from ffmpeg.filters import apply, Scale, Overlay
 
 
 logo = InputFile(
@@ -56,7 +56,7 @@ video = VideoFile(
 
 scaled_video = apply(Scale(1920, 1080), video)
 
-final_video = apply(OverlayFilter(scaled_logo, 0, 0),scaled_video)
+final_video = apply(Overlay(scaled_logo, 0, 0),scaled_video)
 
 
 (
@@ -78,7 +78,7 @@ ffmpeg.py supports multiple output in single command by simply calling one more 
 ```python
 
 from ffmpeg import FFmpeg, Map, InputFile, VideoFile
-from ffmpeg.filters import apply, Scale, OverlayFilter
+from ffmpeg.filters import apply, Scale, Overlay
 
 
 logo = InputFile(
@@ -93,7 +93,7 @@ video = VideoFile(
 
 scaled_video = apply(Scale(1920, 1080), video)
 
-final_video = apply(OverlayFilter(scaled_logo, 0, 0), scaled_video)
+final_video = apply(Overlay(scaled_logo, 0, 0), scaled_video)
 
 
 (

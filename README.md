@@ -73,7 +73,7 @@ FFmpeg.py support complex Filters and can be used with  [`apply`](https://electr
 ```py
 from ffmpeg.ffmpeg import FFmpeg
 from ffmpeg.inputs import InputFile, FileInputOptions
-from ffmpeg.filters import apply, Scale, OverlayFilter
+from ffmpeg.filters import apply, Scale, Overlay
 from ffmpeg.models.output import Map
 
 # set options
@@ -87,7 +87,7 @@ upscaled_clip = apply(Scale(1440, 1920), clip)
 overlay = apply(Scale(100, 100), overlay)
 
 # apply overlay filter with overlay on upscaled_clip
-upscaled_clip = apply(OverlayFilter(overlay, x=0, y=10), clip)
+upscaled_clip = apply(Overlay(overlay, x=0, y=10), clip)
 
 # run command 
 ffmpeg = FFmpeg().output(Map(upscaled_clip), path="out.mp4").run(progress_callback=print)

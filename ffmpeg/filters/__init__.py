@@ -11,7 +11,7 @@ from .scale import (
 )
 from .draw_box import Box
 from .draw_text import Text
-from .overlay import OverlayFilter
+from .overlay import Overlay
 from .split import Split
 from .base import BaseFilter
 from .transition import Transition
@@ -24,6 +24,6 @@ from .sar import SetSampleAspectRatio
 __all__ = [
     "Scale", "EvalMode", "AspectRatioMode", "ColorMatrix", "Intent", "InterlacingMode",
     "IOChromaLocation", "IOPrimaries", "IORange",
-    "Box", "Text", "OverlayFilter", "Split", "BaseFilter", "Transition", "SetTimeBase",
+    "Box", "Text", "Overlay", "Split", "BaseFilter", "Transition", "SetTimeBase",
     "apply", "apply2", "Concat", "SetSampleAspectRatio"
 ]
