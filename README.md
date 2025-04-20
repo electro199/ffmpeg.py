@@ -24,20 +24,11 @@ winget install --id=Gyan.FFmpeg  -e
 or download and install FFmpeg from [FFmpeg official website](https://ffmpeg.org/download.html):
 1. Download the latest FFmpeg build from [here](https://www.gyan.dev/ffmpeg/builds/).
 2. Extract the archive and add the `bin` directory to your system `PATH`.
-3. Verify installation:
-
-   ```sh
-   ffmpeg -version
-   ```
 
 #### macOS
 Using Homebrew:
 ```sh
 brew install ffmpeg
-```
-Verify installation:
-```sh
-ffmpeg -version
 ```
 
 #### Linux
@@ -45,6 +36,11 @@ For Debian/Ubuntu:
 ```sh
 sudo apt install ffmpeg
 ```
+Verify installation:
+```sh
+ffmpeg -version
+```
+
 
 
 ## Documention 
@@ -52,6 +48,8 @@ sudo apt install ffmpeg
 Documention read docs [here](https://electro199.github.io/ffmpeg.py/).
 
 ### Usage
+
+## Usage
 
 For simple media conversion :
 
@@ -67,6 +65,7 @@ export(
 ).run()
 
 ```
+
 # Filters
 FFmpeg.py support complex Filters and can be used with  [`apply`](https://electro199.github.io/ffmpeg.py/api/#ffmpeg.filters.apply) or [`apply2`](https://electro199.github.io/ffmpeg.py/api/#ffmpeg.filters.apply2), apply2 is for multi output filters like Split and Concat.
 
@@ -74,5 +73,31 @@ FFmpeg.py support complex Filters and can be used with  [`apply`](https://electr
 ```py
 clip = InputFile("image.png")
 clip_scaled = apply(Scale(1000, 1000), clip)
+
+=======
+## Advaced Usage
+Lets use ffmpeg powerfull features to scale and overlay.
+
+```py
+from ffmpeg.ffmpeg import FFmpeg
+from ffmpeg.inputs import InputFile, FileInputOptions
+from ffmpeg.filters import apply, Scale, OverlayFilter
+from ffmpeg.models.output import Map
+
+# set options
+clip = InputFile("video.mp4", FileInputOptions(duration=10))
+overlay = InputFile("overlay.png")
+
+# apply scale filter on clip
+upscaled_clip = apply(Scale(1440, 1920), clip)
+
+# apply scale filter on overlay
+overlay = apply(Scale(100, 100), overlay)
+
+# apply overlay filter with overlay on upscaled_clip
+upscaled_clip = apply(OverlayFilter(overlay, x=0, y=10), clip)
+
+# run command 
+ffmpeg = FFmpeg().output(Map(upscaled_clip), path="out.mp4").run(progress_callback=print)
 
 ```

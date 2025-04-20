@@ -1,3 +1,8 @@
+"""
+common functions used by ffmpeg.py feel free to use them!
+
+"""
+
 from typing import Any
 
 
