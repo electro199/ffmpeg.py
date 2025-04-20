@@ -34,12 +34,20 @@ brew install ffmpeg
 #### Linux
 For Debian/Ubuntu:
 ```sh
-sudo apt update && sudo apt install ffmpeg
+sudo apt install ffmpeg
 ```
 Verify installation:
 ```sh
 ffmpeg -version
 ```
+
+
+
+## Documention 
+
+Documention read docs [here](https://electro199.github.io/ffmpeg.py/).
+
+### Usage
 
 ## Usage
 
@@ -57,6 +65,16 @@ export(
 ).run()
 
 ```
+
+# Filters
+FFmpeg.py support complex Filters and can be used with  [`apply`](https://electro199.github.io/ffmpeg.py/api/#ffmpeg.filters.apply) or [`apply2`](https://electro199.github.io/ffmpeg.py/api/#ffmpeg.filters.apply2), apply2 is for multi output filters like Split and Concat.
+
+
+```py
+clip = InputFile("image.png")
+clip_scaled = apply(Scale(1000, 1000), clip)
+
+=======
 ## Advaced Usage
 Lets use ffmpeg powerfull features to scale and overlay.
 
@@ -81,4 +99,5 @@ upscaled_clip = apply(OverlayFilter(overlay, x=0, y=10), clip)
 
 # run command 
 ffmpeg = FFmpeg().output(Map(upscaled_clip), path="out.mp4").run(progress_callback=print)
+
 ```

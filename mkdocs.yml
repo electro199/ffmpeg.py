@@ -1,8 +1,35 @@
-site_name: ffmpeg
-
+site_name: FFmpeg.py
+site_url: https://electro199.github.io/ffmpeg.py/
 
 theme:
-  name: "material"
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      accent: deep purple
+      primary: deep purple
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.footer
+    - content.code.copy
+    - content.admonitions
+    - content.tabs.link
+  code:
+    highlight_theme: material-dark
+
+markdown_extensions:
+  - pymdownx.highlight:
+      linenums: false
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
 
 plugins:
   - search
@@ -15,5 +42,11 @@ plugins:
 
 nav:
   - Home: index.md
-  - FFmpeg command: useful_info.md
-
+  - Installation: installation.md
+  - Getting Started: getting-started.md
+  - Advance Usage:
+    - advance-usage/advance-usage.md
+    - advance-usage/useful_info.md
+  - API Reference: api.md
+  # - FAQ: faq.md
+  # - Contributing: contributing.md

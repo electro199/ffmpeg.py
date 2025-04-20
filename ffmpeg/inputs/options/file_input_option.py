@@ -7,7 +7,10 @@ class FileInputOptions(BaseOptions):
     Represents input options for FFmpeg's `-i` flag.
 
     This class allows users to specify various input-related parameters
-    for FFmpeg command generation.
+    for FFmpeg command generation. 
+    
+    Note:
+        The types for flags like `duration` are int but ffmpeg can accept multiple formats. see [ffmpeg](https://ffmpeg.org/ffmpeg-utils.html#Time-duration)
 
     Example usage:
     ```python
