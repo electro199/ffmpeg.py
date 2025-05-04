@@ -2,7 +2,7 @@
 FFmpeg Wrapper for Python
 
 This module provides a Pythonic interface to FFmpeg, allowing users to construct and execute FFmpeg commands programmatically.
-It simplifies video and audio processing tasks such as format conversion, filtering, and trancoding.
+It simplifies video and audio processing tasks such as format conversion, filtering, and transcoding.
 
 
 Requirements:
@@ -10,21 +10,19 @@ Requirements:
 
 """
 
-from . import inputs
-from . import filters
+from . import inputs, filters, exception, ffplay, ffprobe
 from .models import output
 
-from .ffmpeg import FFmpeg
+from .inputs import InputFile, FileInputOptions, VideoFile
+from .filters import apply, apply2
+from .models.output import Map, OutFile
+from .ffmpeg import FFmpeg, export
 from .exception import FFmpegException, FFprobeException
 
-
-from .utils.utils import export
-from .ffplay import ffplay
-from .ffprobe import ffprobe
 
 import logging
 
 logger = logging.getLogger("ffmpeg")
 
 
-__version__ = "0.0.5"
+__version__ = "0.0.6"

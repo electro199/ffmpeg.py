@@ -181,14 +181,13 @@ class FFmpeg:
 
         return ("-map", stream, *flags)
 
-    def compile(self, overwrite) -> list[str]:
+    def compile(self, overwrite=True) -> list[str]:
         """
         Generate the command
         This fuction gather and combine all of the different part of the command.
 
         command structure should be like:
-
-        ffmpeg [global flags] [input flags -i input] [-filter_complex [filter]] [-map streamid output flags output]
+            `ffmpeg [global flags] [input flags -i input] [-filter_complex [filter]] [-map streamid output flags output]`
 
         """
 
@@ -243,7 +242,6 @@ class FFmpeg:
         Args:
             progress_callback: a function that can be used to track progress of the process running data can be mix of N/A and actual values
             progress_period: Set period at which progress_callback is called
-            path: Path to output file.
             overwrite: overwrite the output if already exists
 
         """
@@ -291,3 +289,17 @@ class FFmpeg:
 
         if process.returncode != 0:
             raise FFmpegException(process.stderr.read(), process.returncode)
+
+
+def export(*nodes:BaseInput | StreamSpecifier, path: str) -> FFmpeg:
+    """
+    Exports a clip by processing the given input nodes and saving the output to the specified path.
+
+    Args:
+        nodes: One or more input nodes representing media sources.
+        path: The output file path where the exported clip will be saved.
+
+    Returns:
+        FFmpeg: An FFmpeg instance configured with the given inputs and output path.
+    """
+    return FFmpeg().output(*(Map(node) for node in nodes), path=path)
