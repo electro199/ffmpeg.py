@@ -1,7 +1,24 @@
-This library provides a Pythonic interface to FFmpeg, making it easier to handle video and audio processing.
+This library provides a classes to interface FFmpeg, making it easier to handle video and audio processing.
 Below is a quick guide to get you started using FFmpeg.py with minimal code.
 
 ---
+
+# Input 
+Take input using `InputFile` it provide general input interface, use `FileInputOptions` to easily set flags or directly pass in kwargs
+
+```python
+
+from ffmpeg import InputFile, FileInputOptions
+
+clip1 = InputFile("video.mp4", t=10, ss=1)
+
+# same but easy usage
+clip = InputFile("video.mp4", FileInputOptions(duration=10), ss=1)
+
+# ['-t', '10', '-ss', '1', '-i', 'video.mp4']
+```
+
+
 
 FFmpeg.py comes with an easy-to-use `export` function that export the single output with multiple stream.
 
@@ -87,7 +104,6 @@ clip_scaled = apply(Scale(1000, 1000), clip)
 
 ```
 
-Lets scale the image and then use it:
 
 
 At end we make a FFmpeg and add a output with two stream mapping. The `Map` add stream(s) to a output file in this way we can add multiple streams to one output, for more complex use case see Advance Usage like Filtering, Multiple outputs or what is progress_callback.
