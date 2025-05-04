@@ -723,9 +723,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ffmpeg.filters.OverlayFilter" class="md-nav__link">
+  <a href="#ffmpeg.filters.Overlay" class="md-nav__link">
     <span class="md-ellipsis">
-      OverlayFilter
+      Overlay
     </span>
   </a>
   
@@ -879,50 +879,6 @@
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../faq.md" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    FAQ
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../contributing.md" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Contributing
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -1240,9 +1196,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ffmpeg.filters.OverlayFilter" class="md-nav__link">
+  <a href="#ffmpeg.filters.Overlay" class="md-nav__link">
     <span class="md-ellipsis">
-      OverlayFilter
+      Overlay
     </span>
   </a>
   
@@ -1730,9 +1686,7 @@
 <span class="normal">288</span>
 <span class="normal">289</span>
 <span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FFmpeg</span><span class="p">:</span>
+<span class="normal">291</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FFmpeg</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;FFmpeg Command Builder&quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1900,8 +1854,7 @@
 <span class="sd">        This fuction gather and combine all of the different part of the command.</span>
 
 <span class="sd">        command structure should be like:</span>
-
-<span class="sd">        ffmpeg [global flags] [input flags -i input] [-filter_complex [filter]] [-map streamid output flags output]</span>
+<span class="sd">            `ffmpeg [global flags] [input flags -i input] [-filter_complex [filter]] [-map streamid output flags output]`</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -1956,7 +1909,6 @@
 <span class="sd">        Args:</span>
 <span class="sd">            progress_callback: a function that can be used to track progress of the process running data can be mix of N/A and actual values</span>
 <span class="sd">            progress_period: Set period at which progress_callback is called</span>
-<span class="sd">            path: Path to output file.</span>
 <span class="sd">            overwrite: overwrite the output if already exists</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -2164,9 +2116,12 @@
 
         <p>Generate the command
 This fuction gather and combine all of the different part of the command.</p>
-<p>command structure should be like:</p>
-<p>ffmpeg [global flags][input flags -i input] [-filter_complex [filter]][-map streamid output flags output]</p>
 
+
+<details class="command-structure-should-be-like" open>
+  <summary>command structure should be like</summary>
+  <p><code>ffmpeg [global flags] [input flags -i input] [-filter_complex [filter]] [-map streamid output flags output]</code></p>
+</details>
 
             <details class="quote">
               <summary>Source code in <code>ffmpeg\ffmpeg.py</code></summary>
@@ -2212,15 +2167,13 @@ This fuction gather and combine all of the different part of the command.</p>
 <span class="normal">223</span>
 <span class="normal">224</span>
 <span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="normal">226</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate the command</span>
 <span class="sd">    This fuction gather and combine all of the different part of the command.</span>
 
 <span class="sd">    command structure should be like:</span>
-
-<span class="sd">    ffmpeg [global flags] [input flags -i input] [-filter_complex [filter]] [-map streamid output flags output]</span>
+<span class="sd">        `ffmpeg [global flags] [input flags -i input] [-filter_complex [filter]] [-map streamid output flags output]`</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -2409,10 +2362,10 @@ This fuction gather and combine all of the different part of the command.</p>
 
             <details class="quote">
               <summary>Source code in <code>ffmpeg\ffmpeg.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">229</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">228</span>
+<span class="normal">229</span>
 <span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">maps</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kvflags</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FFmpeg&quot;</span><span class="p">:</span>
+<span class="normal">231</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">maps</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kvflags</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FFmpeg&quot;</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create output for the command with map and output specific flags and the path for the output&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OutFile</span><span class="p">(</span><span class="n">maps</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kvflags</span><span class="p">))</span>
     <span class="k">return</span> <span class="bp">self</span>
@@ -2514,21 +2467,6 @@ This fuction gather and combine all of the different part of the command.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>path</code>
-            </td>
-            <td>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Path to output file.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
                 <code>overwrite</code>
             </td>
             <td>
@@ -2549,7 +2487,8 @@ This fuction gather and combine all of the different part of the command.</p>
 
             <details class="quote">
               <summary>Source code in <code>ffmpeg\ffmpeg.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">234</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">233</span>
+<span class="normal">234</span>
 <span class="normal">235</span>
 <span class="normal">236</span>
 <span class="normal">237</span>
@@ -2606,9 +2545,7 @@ This fuction gather and combine all of the different part of the command.</p>
 <span class="normal">288</span>
 <span class="normal">289</span>
 <span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span>
+<span class="normal">291</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">progress_callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">dict</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">progress_period</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
@@ -2620,7 +2557,6 @@ This fuction gather and combine all of the different part of the command.</p>
 <span class="sd">    Args:</span>
 <span class="sd">        progress_callback: a function that can be used to track progress of the process running data can be mix of N/A and actual values</span>
 <span class="sd">        progress_period: Set period at which progress_callback is called</span>
-<span class="sd">        path: Path to output file.</span>
 <span class="sd">        overwrite: overwrite the output if already exists</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -2769,7 +2705,9 @@ This fuction gather and combine all of the different part of the command.</p>
 
             <details class="quote">
               <summary>Source code in <code>ffmpeg\ffmpeg.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">296</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
 <span class="normal">297</span>
 <span class="normal">298</span>
 <span class="normal">299</span>
@@ -2778,9 +2716,7 @@ This fuction gather and combine all of the different part of the command.</p>
 <span class="normal">302</span>
 <span class="normal">303</span>
 <span class="normal">304</span>
-<span class="normal">305</span>
-<span class="normal">306</span>
-<span class="normal">307</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export</span><span class="p">(</span><span class="o">*</span><span class="n">nodes</span><span class="p">:</span><span class="n">BaseInput</span> <span class="o">|</span> <span class="n">StreamSpecifier</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FFmpeg</span><span class="p">:</span>
+<span class="normal">305</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">export</span><span class="p">(</span><span class="o">*</span><span class="n">nodes</span><span class="p">:</span><span class="n">BaseInput</span> <span class="o">|</span> <span class="n">StreamSpecifier</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FFmpeg</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Exports a clip by processing the given input nodes and saving the output to the specified path.</span>
 
@@ -4785,8 +4721,8 @@ If not provided, retrieves the stream by index.</p>
 
 
 
-<h2 id="ffmpeg.filters.OverlayFilter" class="doc doc-heading">
-            <code>OverlayFilter</code>
+<h2 id="ffmpeg.filters.Overlay" class="doc doc-heading">
+            <code>Overlay</code>
 
 
 </h2>
@@ -4829,7 +4765,7 @@ If not provided, retrieves the stream by index.</p>
 <span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
-<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OverlayFilter</span><span class="p">(</span><span class="n">BaseFilter</span><span class="p">,</span> <span class="n">TimelineEditingMixin</span><span class="p">):</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Overlay</span><span class="p">(</span><span class="n">BaseFilter</span><span class="p">,</span> <span class="n">TimelineEditingMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents an overlay filter that combines two video streams.</span>
 
@@ -4976,8 +4912,7 @@ If not provided, retrieves the stream by index.</p>
 <span class="normal">78</span>
 <span class="normal">79</span>
 <span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Transition</span><span class="p">(</span><span class="n">BaseFilter</span><span class="p">):</span>
+<span class="normal">81</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Transition</span><span class="p">(</span><span class="n">BaseFilter</span><span class="p">):</span>
     <span class="n">all_transitions</span> <span class="o">=</span> <span class="p">(</span>
         <span class="s2">&quot;custom&quot;</span><span class="p">,</span>
         <span class="s2">&quot;fade&quot;</span><span class="p">,</span>
@@ -5044,8 +4979,7 @@ If not provided, retrieves the stream by index.</p>
         <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">expression</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Combine two videos with transition</span>
-
+<span class="sd">        Combine two videos with transition.Note: requires same size and fps and aspect ration</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;xfade&quot;</span><span class="p">)</span>
 
@@ -5082,7 +5016,7 @@ If not provided, retrieves the stream by index.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Combine two videos with transition</p>
+        <p>Combine two videos with transition.Note: requires same size and fps and aspect ration</p>
 
 
             <details class="quote">
@@ -5101,13 +5035,11 @@ If not provided, retrieves the stream by index.</p>
 <span class="normal">78</span>
 <span class="normal">79</span>
 <span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">81</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">expression</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Combine two videos with transition</span>
-
+<span class="sd">    Combine two videos with transition.Note: requires same size and fps and aspect ration</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;xfade&quot;</span><span class="p">)</span>
 
@@ -5444,15 +5376,15 @@ to a filter node and returns a list of all output streams from the filter.</p>
 
             <details class="quote">
               <summary>Source code in <code>ffmpeg\utils\commons.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
 <span class="normal">28</span>
 <span class="normal">29</span>
-<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_flags</span><span class="p">(</span><span class="n">kwflags</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_flags</span><span class="p">(</span><span class="n">kwflags</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate flags&quot;&quot;&quot;</span>
     <span class="n">flags</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -5483,14 +5415,14 @@ to a filter node and returns a list of all output streams from the filter.</p>
 
             <details class="quote">
               <summary>Source code in <code>ffmpeg\utils\commons.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">17</span>
 <span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">parse_value</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">parse_value</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert FFmpeg progress values to appropriate data types.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>

@@ -2,26 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://electro199.github.io/ffmpeg.py/</loc>
-         <lastmod>2025-04-18</lastmod>
+         <lastmod>2025-05-04</lastmod>
     </url>
     <url>
          <loc>https://electro199.github.io/ffmpeg.py/api/</loc>
-         <lastmod>2025-04-18</lastmod>
+         <lastmod>2025-05-04</lastmod>
     </url>
     <url>
          <loc>https://electro199.github.io/ffmpeg.py/getting-started/</loc>
-         <lastmod>2025-04-18</lastmod>
+         <lastmod>2025-05-04</lastmod>
     </url>
     <url>
          <loc>https://electro199.github.io/ffmpeg.py/installation/</loc>
-         <lastmod>2025-04-18</lastmod>
+         <lastmod>2025-05-04</lastmod>
+    </url>
+    <url>
+         <loc>https://electro199.github.io/ffmpeg.py/useful_info/</loc>
+         <lastmod>2025-05-04</lastmod>
     </url>
     <url>
          <loc>https://electro199.github.io/ffmpeg.py/advance-usage/advance-usage/</loc>
-         <lastmod>2025-04-18</lastmod>
+         <lastmod>2025-05-04</lastmod>
     </url>
     <url>
          <loc>https://electro199.github.io/ffmpeg.py/advance-usage/useful_info/</loc>
-         <lastmod>2025-04-18</lastmod>
+         <lastmod>2025-05-04</lastmod>
     </url>
 </urlset>

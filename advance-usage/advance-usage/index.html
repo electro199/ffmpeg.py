@@ -418,50 +418,6 @@
   
 
     
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../faq.md" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    FAQ
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../contributing.md" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Contributing
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
   </ul>
 </nav>
                   </div>
@@ -504,6 +460,7 @@
 <li><strong>from_imagefile</strong>  that sets <code>-t</code>  for duration and enable <code>loop</code>.</li>
 <li><strong>general streams</strong> like video, audio and subtitles that corresponds to <code>stream_name:v:n</code>/<code>stream_name:a:n</code>/<code>stream_name:s:n</code> in both filter and map context in command.</li>
 </ul>
+<hr />
 <h1 id="global-flags">Global flags</h1>
 <p>Global flags are used change settings for whole runtime, you can use <code>add_global_flag</code> to set custom flags, These flags are automatic added duration command generation in <code>FFmpeg.compile()</code>:</p>
 <ul>
@@ -513,12 +470,96 @@
 </ul>
 <h2 id="usage">Usage</h2>
 <p>The <code>add_global_flag</code> take raw flags example as:
-<div class="highlight"><pre><span></span><code>FFmpeg().add_global_flag(&quot;-recast_media&quot;)
+<div class="highlight"><pre><span></span><code><span class="n">FFmpeg</span><span class="p">()</span><span class="o">.</span><span class="n">add_global_flag</span><span class="p">(</span><span class="s2">&quot;-recast_media&quot;</span><span class="p">)</span>
 
-## Results ffmpeg -recast_media -i ....
+<span class="c1">## Results ffmpeg -recast_media -i ....</span>
 </code></pre></div></p>
+<hr />
 <h1 id="filters">Filters</h1>
-<p>Filters are way the ffmpeg allow media to be manipulated, ffmpeg.py use <a href="ffmpeg.filters.apply"><code>apply</code></a></p>
+<p>Filters are way the ffmpeg allow media to be manipulated, ffmpeg.py use <a href="/ffmpeg.py/api/#ffmpeg.filters.apply"><code>apply</code></a> or <a href="/ffmpeg.py/api/#ffmpeg.filters.apply2"><code>apply2</code></a>, apply2 is for multi output filters. Filter output can be exported or further filtered.</p>
+<h2 id="usage_1">Usage</h2>
+<p>The <a href="/ffmpeg.py/api/#ffmpeg.filters.apply"><code>apply</code></a> functions take Filter and then the input to be filtered</p>
+<div class="highlight"><pre><span></span><code><span class="n">apply</span><span class="p">(</span><span class="n">Filter</span><span class="p">,</span> <span class="n">clip</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="example">Example</h2>
+<p>Lets make a video logo overlay both scaled.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ffmpeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">FFmpeg</span><span class="p">,</span> <span class="n">Map</span><span class="p">,</span> <span class="n">InputFile</span><span class="p">,</span> <span class="n">VideoFile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ffmpeg.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply</span><span class="p">,</span> <span class="n">Scale</span><span class="p">,</span> <span class="n">Overlay</span>
+
+
+<span class="n">logo</span> <span class="o">=</span> <span class="n">InputFile</span><span class="p">(</span>
+    <span class="s2">&quot;image.png&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">scaled_logo</span> <span class="o">=</span> <span class="n">apply</span><span class="p">(</span><span class="n">Scale</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">logo</span><span class="p">)</span>
+
+<span class="n">video</span> <span class="o">=</span> <span class="n">VideoFile</span><span class="p">(</span>
+    <span class="s2">&quot;video.mp4&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">scaled_video</span> <span class="o">=</span> <span class="n">apply</span><span class="p">(</span><span class="n">Scale</span><span class="p">(</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">1080</span><span class="p">),</span> <span class="n">video</span><span class="p">)</span>
+
+<span class="n">final_video</span> <span class="o">=</span> <span class="n">apply</span><span class="p">(</span><span class="n">Overlay</span><span class="p">(</span><span class="n">scaled_logo</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span><span class="n">scaled_video</span><span class="p">)</span>
+
+
+<span class="p">(</span>
+    <span class="n">FFmpeg</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">Map</span><span class="p">(</span><span class="n">final_video</span><span class="p">),</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;out.mp4&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="c1"># Results </span>
+<span class="c1"># ffmpeg -hide_banner -y -loglevel error -i image.png -i video.mp4 \</span>
+<span class="c1"># -filter_complex [0]scale=width=200:height=200[n0o0]; \</span>
+<span class="c1">#                 [1]scale=width=1920:height=1080[n1o0];\</span>
+<span class="c1">#                 [n1o0][n0o0]overlay=x=0:y=0[n2o0] \</span>
+<span class="c1">#  -map [n2o0] out.mp4</span>
+</code></pre></div>
+<h1 id="multiple-outputs">Multiple Outputs</h1>
+<p>ffmpeg.py supports multiple output in single command by simply calling one more <code>output</code>. Lets use previous example. Here we are export the video and scaled logo</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ffmpeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">FFmpeg</span><span class="p">,</span> <span class="n">Map</span><span class="p">,</span> <span class="n">InputFile</span><span class="p">,</span> <span class="n">VideoFile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ffmpeg.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply</span><span class="p">,</span> <span class="n">Scale</span><span class="p">,</span> <span class="n">Overlay</span>
+
+
+<span class="n">logo</span> <span class="o">=</span> <span class="n">InputFile</span><span class="p">(</span>
+    <span class="s2">&quot;image.png&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">scaled_logo</span> <span class="o">=</span> <span class="n">apply</span><span class="p">(</span><span class="n">Scale</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">logo</span><span class="p">)</span>
+
+<span class="n">video</span> <span class="o">=</span> <span class="n">VideoFile</span><span class="p">(</span>
+    <span class="s2">&quot;video.mp4&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">scaled_video</span> <span class="o">=</span> <span class="n">apply</span><span class="p">(</span><span class="n">Scale</span><span class="p">(</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">1080</span><span class="p">),</span> <span class="n">video</span><span class="p">)</span>
+
+<span class="n">final_video</span> <span class="o">=</span> <span class="n">apply</span><span class="p">(</span><span class="n">Overlay</span><span class="p">(</span><span class="n">scaled_logo</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">scaled_video</span><span class="p">)</span>
+
+
+<span class="p">(</span>
+    <span class="n">FFmpeg</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">Map</span><span class="p">(</span><span class="n">final_video</span><span class="p">),</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;out.mp4&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">Map</span><span class="p">(</span><span class="n">scaled_logo</span><span class="p">),</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;scaled_logo.png&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># Results </span>
+<span class="c1"># ffmpeg -hide_banner -y -loglevel error -i image.png -i video.mp4</span>
+<span class="c1"># -filter_complex [0]scale=width=200:height=200[n0o0]; \</span>
+<span class="c1">#                 [1]scale=width=1920:height=1080[n1o0];\</span>
+<span class="c1">#                 [n1o0][n0o0]overlay=x=0:y=0[n2o0]\</span>
+<span class="c1"># -map [n2o0] out.mp4 </span>
+<span class="c1"># -map [n0o0] scaled_logo.png</span>
+</code></pre></div>
+<h1 id="map-flags">Map Flags</h1>
+<p>We also need to set <code>-map</code> flags when exporting like setting fps or bitrate to do that we will set them in <code>Map</code> context</p>
+<p>Use <code>suffix_flags</code> when a flags requires a suffix like <code>-r:1</code> or <code>-r:v:1</code> otherwise <code>kwargs</code> will catch all normal flags.</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span>
+    <span class="n">FFmpeg</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">Map</span><span class="p">(</span><span class="n">final_video</span><span class="p">,),</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;out.mp4&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">Map</span><span class="p">(</span><span class="n">scaled_logo</span><span class="p">),</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;scaled_logo.png&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
 
 
 
