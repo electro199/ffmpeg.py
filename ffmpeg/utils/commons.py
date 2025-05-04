@@ -33,3 +33,11 @@ def build_flags(kwflags: dict[str, Any]) -> list[str]:
         flags.append(str(v))
 
     return flags
+
+
+def build_name_kvargs_format(name: str, flags: dict) -> str:
+    s = []
+    for k, v in flags.items():
+        s.append(f"{k}={v}")
+
+    return f"{name}=" + (":".join(s))
