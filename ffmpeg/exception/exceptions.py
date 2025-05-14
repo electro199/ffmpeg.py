@@ -5,6 +5,7 @@ These exceptions are raised when subprocess calls to FFmpeg or FFprobe fail,
 capturing both the error message and return code.
 """
 
+
 class FFmpegException(Exception):
     """
     Exception raised when an FFmpeg command fails.
@@ -13,6 +14,7 @@ class FFmpegException(Exception):
         msg (str): The error message returned by FFmpeg.
         return_code (int): The process return code from FFmpeg.
     """
+
     def __init__(self, msg, return_code) -> None:
         """
         Initialize FFmpegException.
@@ -38,6 +40,7 @@ class FFprobeException(FFmpegException):
         msg (str): The error message returned by FFprobe.
         return_code (int): The process return code from FFprobe.
     """
+
     def __init__(self, msg, return_code) -> None:
         """
         Initialize FFprobeException.

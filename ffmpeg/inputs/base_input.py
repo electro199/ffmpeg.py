@@ -2,6 +2,7 @@ from .streams import StreamSpecifier
 from abc import ABC, abstractmethod
 from ..utils.commons import build_flags
 
+
 class BaseInput(ABC):
     def __init__(self) -> None:
         self.flags = {}

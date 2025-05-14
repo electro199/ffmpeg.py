@@ -1,14 +1,13 @@
-from typing import Literal, Optional
+from typing import Iterator, Literal, Optional
 from .base_input import BaseInput
 from .streams import StreamSpecifier
 from ..ffprobe.ffprobe import ffprobe
-
 
 class VideoFile(BaseInput):
     """
     A class representing a video file that can be processed with FFmpeg.
 
-    This class provides methods for interacting with a video file, such as 
+    This class provides methods for interacting with a video file, such as
     building FFmpeg input flags, extracting streams (audio, video, subtitles),
     creating subclips, and retrieving the video file's resolution.
     """
@@ -22,6 +21,7 @@ class VideoFile(BaseInput):
         """
         super().__init__()
         self.filepath = filepath
+
     @property
     def audio(self) -> StreamSpecifier:
         """
@@ -38,7 +38,7 @@ class VideoFile(BaseInput):
         Access the video stream of the video file.
 
         Returns:
-            StreamSpecifier: A StreamSpecifier object for the video stream.
+            StreamSpecifier
         """
         return StreamSpecifier(self, stream_name="v")
 
@@ -52,24 +52,55 @@ class VideoFile(BaseInput):
         """
         return StreamSpecifier(self, stream_name="s")
 
+    def __iter__(self) -> Iterator[StreamSpecifier]:
+        for stream in ffprobe(self.filepath, ["-show_streams"])["streams"]:
+            yield StreamSpecifier(
+                self,
+                stream_index=stream.get("index"),
+                codec_type=stream.get("codec_type"),
+                metadata=stream,
+            )
+
+    def __getitem__(self, index: int) -> StreamSpecifier:
+        """
+        Thsd[f ks;dkfns dkfnsd] sdfsdf sdf 
+        s dfsd        
+        """
+        stream = ffprobe(self.filepath, ["-show_streams"])["streams"][index]
+        return StreamSpecifier(
+            self,
+            stream_index=stream.get("index"),
+            codec_type=stream.get("codec_type"),
+            metadata=stream,
+        )
+
     def get_stream(
         self,
         stream_index: int,
-        stream_name: Optional[Literal["a", "v", "s"]] = None,
+        stream_name: Optional[Literal["a", "v", "s", "d", "t", "V"]] = None,
     ) -> StreamSpecifier:
         """
-        Get a specific stream from the video file by index and/or stream name. 
-        
+        Get a specific stream from the video file by index and/or stream name.
+
+        Note:
+            This function will not validate if stream exists.
+
         Example:
-            You get 2nd audio stream from video like this. 
-            ```python 
+            You get 2nd audio stream from video like this.
+            ```python
             clip.get_stream(stream_index=1,stream_name="a")
             ```
-            
+
         Args:
             stream_index (int): The index of the stream (e.g., 0 for the first stream).
-            stream_name (Optional[Literal["a", "v", "s"]]): The name of the stream 
-                to retrieve ("a" for audio, "v" for video, "s" for subtitles). 
+            stream_name (Optional[Literal["a", "v", "s", "d", "t", "V"]]): The name of the stream
+                to retrieve
+                - `a` -> audio
+                - `v` -> video
+                - `s` -> subtitles
+                - `d` -> data
+                - `t` -> attachments
+                - `V` -> video but excludes thumbnails/attached pics
                 If not provided, retrieves the stream by index.
 
         Returns:
@@ -81,7 +112,7 @@ class VideoFile(BaseInput):
         """
         Builds the FFmpeg input flags for the video file.
 
-        This method constructs the FFmpeg command line input flags to specify 
+        This method constructs the FFmpeg command line input flags to specify
         the video file to be processed.
 
         Returns:
@@ -94,6 +125,7 @@ class VideoFile(BaseInput):
     def subclip(self, start: float, end: float):
         """
         Defines a subclip from the video file by setting the start and end times.
+        This will not make a new copy until exported.
 
         Args:
             start (float): The start time of the subclip in seconds.
@@ -108,7 +140,7 @@ class VideoFile(BaseInput):
     @classmethod
     def from_imagefile(cls, imgpath: str, duration: float, fps: int):
         """
-        Creates a VideoFile object from an image file, looping it for the given 
+        Creates a VideoFile object from an image file, looping it for the given
         duration and setting the frame rate.
 
         Args:
@@ -125,12 +157,11 @@ class VideoFile(BaseInput):
         c.flags["framerate"] = fps
         return c
 
-
     def get_size(self):
         """
         Retrieves the resolution (width and height) of the video file.
 
-        Uses FFprobe to extract the width and height of the first video stream 
+        Uses FFprobe to extract the width and height of the first video stream
         in the video file.
 
         Returns:
@@ -150,4 +181,4 @@ class VideoFile(BaseInput):
         return data["width"], data["height"]
 
     def __repr__(self) -> str:
-        return f"<VideoFile filepath={self.filepath}>"
+        return f"<VideoFile filepath={(self.filepath)}>"

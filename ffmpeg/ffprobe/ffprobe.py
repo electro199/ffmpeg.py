@@ -1,12 +1,12 @@
-
 import subprocess
 import json
+from typing import Iterable, Optional
 from ..exception.exceptions import FFprobeException
 
 
 def ffprobe(
     file_path,
-    options=None,
+    options: Optional[Iterable[str]] = None,
 ):
     """
     Run ffprobe with the given options on the specified file.

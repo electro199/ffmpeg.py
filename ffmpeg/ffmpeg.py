@@ -13,7 +13,7 @@ from .exception.exceptions import FFmpegException
 from .filters import BaseFilter
 from .inputs import BaseInput
 from .inputs.streams import StreamSpecifier
-from .models.output import Map, OutFile
+from .output.output import Map, OutFile
 from .utils.commons import build_flags, parse_value, wrap_sqrtbrkt
 
 logger = logging.getLogger("ffmpeg")
@@ -29,13 +29,14 @@ class FFmpeg:
         self._filter_nodes = []
         self._outputs: list[OutFile] = []
         self.node_count = 0
-        self._global_flags = ["-hide_banner"]
+        self._global_flags = []
 
     def reset(self) -> "FFmpeg":
         """Reset all compilation data added"""
         self._inputs: list[BaseInput] = []
         self._filter_nodes: list[BaseFilter] = []
         self.node_count = 0
+        self._global_flags = ["-hide_banner"]
         return self
 
     def add_global_flag(self, *flags) -> "FFmpeg":
@@ -62,7 +63,7 @@ class FFmpeg:
         """
         return f"n{i}o{j}{stream_char}"
 
-    def generate_inlink_name(self, parent) -> str:
+    def generate_inlink_name(self, parent: BaseInput | StreamSpecifier) -> str:
         """Get different types of links that ffmpeg uses with different types of Object"""
         stream_specifier = ""
 
@@ -122,7 +123,7 @@ class FFmpeg:
         return filter_chain
 
     def flatten_graph(
-        self, node: BaseFilter | StreamSpecifier  # type: ignore
+        self, node: BaseInput | StreamSpecifier  # type: ignore
     ) -> list[BaseFilter] | None:
 
         if isinstance(node, StreamSpecifier):
@@ -166,28 +167,13 @@ class FFmpeg:
         if not isinstance(node, BaseInput):
             stream = wrap_sqrtbrkt(stream)
 
-        flags = []
-
-        # use stream type like foo:v 
-        stream_type_specfier = f":{map.stream_type}" if map.stream_type else ""
-
-        for k, v in map.suffix_flags.items():
-            flags.append(f"-{k}{stream_type_specfier}:{map_index}")
-            flags.append(str(v))
-
-        for k, v in map.flags.items():
-            flags.append(f"-{k}")
-            flags.append(str(v))
-
+        flags = map.build(map_index=map_index)
         return ("-map", stream, *flags)
 
     def compile(self, overwrite=True) -> list[str]:
         """
         Generate the command
         This fuction gather and combine all of the different part of the command.
-
-        command structure should be like:
-            `ffmpeg [global flags] [input flags -i input] [-filter_complex [filter]] [-map streamid output flags output]`
 
         """
 
@@ -201,7 +187,6 @@ class FFmpeg:
             self.add_global_flag("-n")
 
         self.add_global_flag("-loglevel", "error")
-
 
         command = [self.ffmpeg_path, *self._global_flags]
         # First flatten filters to add inputs automatically from last node order matters here
@@ -217,7 +202,7 @@ class FFmpeg:
             command.extend(("-filter_complex", ";".join(filters)))
 
         for output in self._outputs:
-            for i, maps in enumerate(output.maps): # one output can have multiple maps
+            for i, maps in enumerate(output.maps):  # one output can have multiple maps
                 command.extend(self.build_map(maps, i))
 
             command.extend(build_flags(output.kvflags))
@@ -225,7 +210,7 @@ class FFmpeg:
 
         return list(map(str, command))
 
-    def output(self, *maps, path, **kvflags) -> "FFmpeg":
+    def output(self, *maps, path: str, **kvflags) -> "FFmpeg":
         """Create output for the command with map and output specific flags and the path for the output"""
         self._outputs.append(OutFile(maps, path, **kvflags))
         return self
@@ -240,12 +225,12 @@ class FFmpeg:
         Run the FFmpeg command.
 
         Args:
-            progress_callback: a function that can be used to track progress of the process running data can be mix of N/A and actual values
+            progress_callback: 
+                Function that can be used to track progress of the process running data can be mix of None and actual values
             progress_period: Set period at which progress_callback is called
             overwrite: overwrite the output if already exists
 
         """
-
         stdout = None
         stderr = subprocess.PIPE
 
@@ -291,7 +276,7 @@ class FFmpeg:
             raise FFmpegException(process.stderr.read(), process.returncode)
 
 
-def export(*nodes:BaseInput | StreamSpecifier, path: str) -> FFmpeg:
+def export(*nodes: BaseInput | StreamSpecifier, path: str) -> FFmpeg:
     """
     Exports a clip by processing the given input nodes and saving the output to the specified path.
 

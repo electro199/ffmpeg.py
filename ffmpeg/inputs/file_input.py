@@ -39,6 +39,6 @@ class InputFile(BaseInput):
     def get_stream(
         self,
         stream_index: int,
-        stream_name: Optional[Literal["a", "v", "s"]] = None,
+        stream_name: Optional[Literal["a", "v", "s", "d", "t", "V"]] = None,
     ) -> StreamSpecifier:
         return StreamSpecifier(self, stream_name=stream_name, stream_index=stream_index)

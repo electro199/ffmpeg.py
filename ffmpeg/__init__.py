@@ -11,11 +11,18 @@ Requirements:
 """
 
 from . import inputs, filters, exception, ffplay, ffprobe
-from .models import output
+from .output import output
 
-from .inputs import InputFile, FileInputOptions, VideoFile
+from .inputs import (
+    InputFile,
+    FileInputOptions,
+    VideoFile,
+    ImageFile,
+    AudioFile,
+    VirtualVideo,
+)
 from .filters import apply, apply2
-from .models.output import Map, OutFile
+from .output.output import Map, OutFile
 from .ffmpeg import FFmpeg, export
 from .exception import FFmpegException, FFprobeException
 
@@ -25,4 +32,4 @@ import logging
 logger = logging.getLogger("ffmpeg")
 
 
-__version__ = "0.0.6"
+__version__ = "0.0.7"

@@ -12,7 +12,7 @@ class BaseOptions:
 
         for v in self.args:
             flags.append(f"-{v}")
-        
+
         for k, v in self.kwargs.items():
             flags.extend((f"-{k}", str(v)))
 
