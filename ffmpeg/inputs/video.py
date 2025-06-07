@@ -180,5 +180,27 @@ class VideoFile(BaseInput):
         )["streams"][0]
         return data["width"], data["height"]
 
+    def get_duration(self) -> float:
+        """
+        Retrieves the duration of the video file.
+
+        Uses FFprobe to extract duration the first video stream
+        in the video file.
+
+        Returns:
+            float: duration in seconds.
+        """
+        data = ffprobe(
+            self.filepath,
+            (
+                "-v",
+                "error",
+                "-show_streams",
+            ),
+        )[
+            "streams"
+        ][0]
+        return float(data["duration"])
+
     def __repr__(self) -> str:
         return f"<VideoFile filepath={(self.filepath)}>"

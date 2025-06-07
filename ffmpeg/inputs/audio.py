@@ -53,7 +53,7 @@ class AudioFile(BaseInput):
         """
         Retrieves the duration of the audio file.
 
-        Uses FFprobe to extract the width and height of the first audio stream
+        Uses FFprobe to extract duration of the first audio stream
         in the audio file.
 
         Returns:
@@ -69,7 +69,7 @@ class AudioFile(BaseInput):
         )[
             "streams"
         ][0]
-        return data["duration"]
+        return float(data["duration"])
 
     def subclip(self, start: float, end: float) -> "AudioFile":
         """
