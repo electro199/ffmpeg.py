@@ -402,9 +402,20 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../api/" class="md-nav__link">
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -413,7 +424,88 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_reference/inputs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inputs
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_reference/filters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Filters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_reference/api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Api
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -458,8 +550,15 @@
 <ul>
 <li><strong>subclip</strong> that sets <code>-ss</code> and <code>-t</code>  for seek start and duration repectively</li>
 <li><strong>from_imagefile</strong>  that sets <code>-t</code>  for duration and enable <code>loop</code>.</li>
-<li><strong>general streams</strong> like video, audio and subtitles that corresponds to <code>stream_name:v:n</code>/<code>stream_name:a:n</code>/<code>stream_name:s:n</code> in both filter and map context in command.</li>
+<li><strong>general streams</strong> like video, audio and subtitles that corresponds to <code>stream_name:v:n</code> in both filter and map context in command.</li>
 </ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ffmpeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputFile</span><span class="p">,</span> <span class="n">FileInputOptions</span>
+
+<span class="n">clip</span> <span class="o">=</span> <span class="n">InputFile</span><span class="p">(</span><span class="s2">&quot;video.mp4&quot;</span><span class="p">,</span> <span class="n">FileInputOptions</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">frame_rate</span><span class="o">=</span><span class="mi">24</span><span class="p">))</span>
+</code></pre></div>
+<p>It will create this command piece by running <code>clip.build_input_flags()</code>.</p>
+<div class="highlight"><pre><span></span><code>[&#39;-t&#39;, &#39;10&#39;, &#39;-r&#39;, &#39;24&#39;, &#39;-i&#39;, &#39;video.mp4&#39;]
+</code></pre></div>
 <hr />
 <h1 id="global-flags">Global flags</h1>
 <p>Global flags are used change settings for whole runtime, you can use <code>add_global_flag</code> to set custom flags, These flags are automatic added duration command generation in <code>FFmpeg.compile()</code>:</p>

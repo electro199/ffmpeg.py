@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#example" class="md-skip">
+        <a href="#input" class="md-skip">
           Skip to content
         </a>
       
@@ -284,19 +284,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Getting Started
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -309,41 +298,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#filters" class="md-nav__link">
-    <span class="md-ellipsis">
-      Filters
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -446,9 +400,20 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../api/" class="md-nav__link">
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -457,7 +422,88 @@
   </span>
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_reference/inputs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inputs
+    
+  </span>
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_reference/filters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Filters
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_reference/api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Api
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -479,32 +525,8 @@
   
   
   
+    
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#filters" class="md-nav__link">
-    <span class="md-ellipsis">
-      Filters
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -520,11 +542,39 @@
 
 
 
-<p>This library provides a Pythonic interface to FFmpeg, making it easier to handle video and audio processing.
-Below is a quick guide to get you started using FFmpeg.py with minimal code.</p>
-<hr />
+<h1 id="input">Input</h1>
+<p>Available classes for taking media are:</p>
+<ul>
+<li><code>InputFile</code>: For Generic Inputs</li>
+<li><code>VideoFile</code>: For Video</li>
+<li><code>ImageFile</code>: For Image</li>
+<li><code>AudioFile</code>: For Audio</li>
+<li><code>VirtualVideo</code>: For Generating Videos</li>
+</ul>
+<p>Take input using <code>InputFile</code> it provide general input interface, use <code>FileInputOptions</code> to easily set flags or directly pass in kwargs</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ffmpeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputFile</span><span class="p">,</span> <span class="n">FileInputOptions</span><span class="p">,</span> <span class="n">VideoFile</span>
+
+<span class="c1"># if you know flags</span>
+<span class="n">clip1</span> <span class="o">=</span> <span class="n">InputFile</span><span class="p">(</span><span class="s2">&quot;video.mp4&quot;</span><span class="p">,</span> <span class="n">ss</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># same but easy usage but limited flags</span>
+<span class="n">clip</span> <span class="o">=</span> <span class="n">InputFile</span><span class="p">(</span><span class="s2">&quot;video.mp4&quot;</span><span class="p">,</span> <span class="n">FileInputOptions</span><span class="p">(</span><span class="n">start_time</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># same with VideoFile easiest</span>
+<span class="n">clip</span> <span class="o">=</span> <span class="n">VideoFile</span><span class="p">(</span><span class="s2">&quot;video.mp4&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">subclip</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># [&#39;-t&#39;, &#39;10&#39;, &#39;-ss&#39;, &#39;1&#39;, &#39;-i&#39;, &#39;video.mp4&#39;]</span>
+</code></pre></div>
+<h1 id="filters">Filters</h1>
+<p>Filters can be used with <a href="/ffmpeg.py/api/#ffmpeg.filters.apply"><code>apply</code></a> or <a href="/ffmpeg.py/api/#ffmpeg.filters.apply2"><code>apply2</code></a>, apply2 is for multi output filters like Split and Concat.</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code><span class="n">clip</span> <span class="o">=</span> <span class="n">InputFile</span><span class="p">(</span><span class="s2">&quot;image.png&quot;</span><span class="p">)</span>
+<span class="n">clip_scaled</span> <span class="o">=</span> <span class="n">apply</span><span class="p">(</span><span class="n">Scale</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="n">clip</span><span class="p">)</span>
+</code></pre></div>
+<h1 id="export">Export</h1>
 <p>FFmpeg.py comes with an easy-to-use <code>export</code> function that export the single output with multiple stream.</p>
-<p>Here quickly combine audio and video from files and output them to a single file.</p>
+<p>combine audio and video from files and output them to a single file.</p>
+<p>This code extracts the <strong>video</strong> from <code>video.mp4</code> and the <strong>audio</strong> from <code>video1.mp4</code>, then exports them into a single output file <code>out.mp4</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ffmpeg.inputs</span><span class="w"> </span><span class="kn">import</span> <span class="n">VideoFile</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ffmpeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">export</span>
 
@@ -536,7 +586,6 @@ Below is a quick guide to get you started using FFmpeg.py with minimal code.</p>
 
 <span class="c1"># ffmpeg ... -i video1.mp4 -i video2.mp4 -map 0:v -map 1:a out.mp4</span>
 </code></pre></div>
-<p>This code extracts the <strong>video</strong> from <code>video.mp4</code> and the <strong>audio</strong> from <code>video1.mp4</code>, then exports them into a single output file <code>out.mp4</code>.</p>
 <p>Which is same as Using <code>FFmpeg()</code> with <code>Map</code> but in this way you can add flags per <code>Map</code> like encoding.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ffmpeg.inputs</span><span class="w"> </span><span class="kn">import</span> <span class="n">VideoFile</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ffmpeg</span><span class="w"> </span><span class="kn">import</span> <span class="n">FFmpeg</span><span class="p">,</span> <span class="n">Map</span>
@@ -550,8 +599,8 @@ Below is a quick guide to get you started using FFmpeg.py with minimal code.</p>
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>This method provides a more <strong>explicit</strong> control flow where each stream is mapped individually. you can provide flags for <code>-map</code> context with both stream suffixed flag or without. </p>
 </div>
+<p>This method provides a more <strong>explicit</strong> control flow where each stream is mapped individually. you can provide flags for <code>-map</code> context with both stream suffixed flag or without.</p>
 <hr />
 <h2 id="example">Example</h2>
 <p>Lets make a video from a image with audio with</p>
@@ -584,13 +633,6 @@ this provide useful flags that are applied to input in ffmpeg command.</p>
 <li>we set a <code>duration</code> so infinite loop can end</li>
 <li>then set <code>frame_rate</code> at 60</li>
 </ul>
-<h1 id="filters">Filters</h1>
-<p>Filters can be used with  <a href="/ffmpeg.py/api/#ffmpeg.filters.apply"><code>apply</code></a> or <a href="/ffmpeg.py/api/#ffmpeg.filters.apply2"><code>apply2</code></a>, apply2 is for multi output filters like Split and Concat.</p>
-<p>Usage:</p>
-<div class="highlight"><pre><span></span><code><span class="n">clip</span> <span class="o">=</span> <span class="n">InputFile</span><span class="p">(</span><span class="s2">&quot;image.png&quot;</span><span class="p">)</span>
-<span class="n">clip_scaled</span> <span class="o">=</span> <span class="n">apply</span><span class="p">(</span><span class="n">Scale</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="n">clip</span><span class="p">)</span>
-</code></pre></div>
-<p>Lets scale the image and then use it:</p>
 <p>At end we make a FFmpeg and add a output with two stream mapping. The <code>Map</code> add stream(s) to a output file in this way we can add multiple streams to one output, for more complex use case see Advance Usage like Filtering, Multiple outputs or what is progress_callback.</p>
 
 
