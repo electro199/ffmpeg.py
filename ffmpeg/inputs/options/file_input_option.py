@@ -20,8 +20,8 @@ class FileInputOptions(BaseOptions):
 
     def __init__(
         self,
-        duration: Optional[int] = None,
-        start_time: Optional[str] = None,
+        duration: Optional[float] = None,
+        start_time: Optional[float] = None,
         format: Optional[str] = None,
         codec: Optional[str] = None,
         frame_rate: Optional[float] = None,

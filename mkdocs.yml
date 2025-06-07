@@ -38,8 +38,19 @@ plugins:
       handlers:
         python:
           options:
-            show_source: true
-
+            show_source: false
+            show_root_heading: true
+            show_root_full_path: false
+            show_object_full_path: false
+            separate_signature: true
+            group_by_category: true
+            heading_level: 2
+            # show_if_no_docstring: true
+            docstring_section_style: table
+            merge_init_into_class: true
+            show_inheritance_diagram: true
+            show_symbol_type_heading: true
+            inherited_members: true
 nav:
   - Home: index.md
   - Installation: installation.md
@@ -47,6 +58,9 @@ nav:
   - Advance Usage:
     - advance-usage/advance-usage.md
     - advance-usage/useful_info.md
-  - API Reference: api.md
+  - API Reference: 
+    - Inputs: api_reference/inputs.md
+    - Filters: api_reference/filters.md
+    - api_reference/api.md
   # - FAQ: faq.md
   # - Contributing: contributing.md

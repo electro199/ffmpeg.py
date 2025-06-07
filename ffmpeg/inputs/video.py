@@ -3,6 +3,7 @@ from .base_input import BaseInput
 from .streams import StreamSpecifier
 from ..ffprobe.ffprobe import ffprobe
 
+
 class VideoFile(BaseInput):
     """
     A class representing a video file that can be processed with FFmpeg.
@@ -63,8 +64,7 @@ class VideoFile(BaseInput):
 
     def __getitem__(self, index: int) -> StreamSpecifier:
         """
-        Thsd[f ks;dkfns dkfnsd] sdfsdf sdf 
-        s dfsd        
+        Get stream from video by index
         """
         stream = ffprobe(self.filepath, ["-show_streams"])["streams"][index]
         return StreamSpecifier(
@@ -122,7 +122,7 @@ class VideoFile(BaseInput):
         command.extend(["-i", self.filepath])
         return command
 
-    def subclip(self, start: float, end: float):
+    def subclip(self, start: float, end: float) -> "VideoFile":
         """
         Defines a subclip from the video file by setting the start and end times.
         This will not make a new copy until exported.
@@ -138,7 +138,7 @@ class VideoFile(BaseInput):
         return self
 
     @classmethod
-    def from_imagefile(cls, imgpath: str, duration: float, fps: int):
+    def from_imagefile(cls, imgpath: str, duration: float, fps: int) -> "VideoFile":
         """
         Creates a VideoFile object from an image file, looping it for the given
         duration and setting the frame rate.
@@ -157,7 +157,7 @@ class VideoFile(BaseInput):
         c.flags["framerate"] = fps
         return c
 
-    def get_size(self):
+    def get_size(self) -> tuple[int, int]:
         """
         Retrieves the resolution (width and height) of the video file.
 

@@ -50,4 +50,4 @@ class StreamSpecifier:
         return f"<{self.__class__.__name__} stream_index={self.stream_index} stream_name={self.stream_name}>"
     
     def __repr__(self) -> str:
-        return f"<{self.__class__.__name__} index={self.stream_index} name={self.stream_name}>"
+        return f"<{self.__class__.__name__} index={self.stream_index} stream={self.stream_name}>"

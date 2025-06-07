@@ -4,7 +4,7 @@ from .base_virtual_input import BaseVirtualInput
 
 
 class VirtualVideo(BaseVirtualInput):
-    """ """
+    """ ssdsad"""
 
     def __init__(
         self,
@@ -40,11 +40,9 @@ class VirtualVideo(BaseVirtualInput):
         local_vars = locals()
         kwargs = {}
         for k, v in local_vars.items():
-            if k in {"cls", "height", "width"} and v is None:
+            if k in {"cls", "height", "width"}:
                 continue
 
-            if isinstance(v, bool):
-                v = bool(v)
 
             kwargs.update(k=v)
 
@@ -53,16 +51,26 @@ class VirtualVideo(BaseVirtualInput):
     @classmethod
     def from_life(
         cls,
-        size: str,
-        duration: float,
+        width: int,
+        height: int,
+        duration: Optional[float] = None,
         rate: int = 30,
         mold: int = 0,
         stitch: int = 1,
+        rule: Optional[str] = None,
     ):
-        kwargs = {"size": size, "rate": rate, "mold": mold, "stitch": stitch}
-        if duration:
-            kwargs["duration"] = duration
-        return cls("life", **kwargs)
+        local_vars = locals()
+        kwargs = {
+            k: v
+            for k, v in local_vars.items()
+            if k not in {"cls", "width", "height", "duration"}
+        }
+        return cls(
+            "life",
+            size=f"{width}x{height}",
+            flags=dict(t=duration),  # this filter does not take duration like normal
+            **kwargs,
+        )
 
     @classmethod
     def from_mandelbrot(
@@ -89,7 +97,7 @@ class VirtualVideo(BaseVirtualInput):
         kwargs = {
             k: v
             for k, v in local_vars.items()
-            if k not in {"cls", "width", "height"} and v is not None
+            if k not in {"cls", "width", "height"}
         }
         return cls("mandelbrot", size=f"{width}x{height}", **kwargs)
 
@@ -98,7 +106,7 @@ class VirtualVideo(BaseVirtualInput):
         cls,
         height: int,
         width: int,
-        duration: float,
+        duration: Optional[float] = None,
         rate: Optional[int] = None,
         c0: Optional[str] = None,
         c1: Optional[str] = None,
@@ -134,7 +142,7 @@ class VirtualVideo(BaseVirtualInput):
         kwargs = {
             k: v
             for k, v in local_vars.items()
-            if k not in {"cls", "width", "height"} and v is not None
+            if k not in {"cls", "width", "height"}
         }
         return cls("gradients", size=f"{width}x{height}", **kwargs)
 
@@ -143,7 +151,7 @@ class VirtualVideo(BaseVirtualInput):
         cls,
         width: int,
         height: int,
-        duration: float,
+        duration: Optional[float] = None,
         rate: int = 25,
         sar: Optional[int] = None,
         decimals: Optional[int] = None,
@@ -159,7 +167,7 @@ class VirtualVideo(BaseVirtualInput):
         kwargs = {
             k: v
             for k, v in local_vars.items()
-            if k not in {"cls", "width", "height"} and v is not None
+            if k not in {"cls", "width", "height"}
         }
         return cls("testsrc", size=f"{width}x{height}", **kwargs)
 
@@ -168,7 +176,7 @@ class VirtualVideo(BaseVirtualInput):
         cls,
         height: int,
         width: int,
-        duration: float,
+        duration: Optional[float] = None,
         rate: int = 25,
         sar: Optional[int] = None,
         alpha: Optional[int] = None,
@@ -177,7 +185,7 @@ class VirtualVideo(BaseVirtualInput):
         kwargs = {
             k: v
             for k, v in local_vars.items()
-            if k not in {"cls", "width", "height"} and v is not None
+            if k not in {"cls", "width", "height"}
         }
         return cls("testsrc2", size=f"{width}x{height}", **kwargs)
 
@@ -186,7 +194,7 @@ class VirtualVideo(BaseVirtualInput):
         cls,
         height: int,
         width: int,
-        duration: float,
+        duration: Optional[float] = None,
         rate: int = 25,
         sar: Optional[int] = None,
     ):
@@ -194,7 +202,7 @@ class VirtualVideo(BaseVirtualInput):
         kwargs = {
             k: v
             for k, v in local_vars.items()
-            if k not in {"cls", "width", "height"} and v is not None
+            if k not in {"cls", "width", "height"}
         }
         return cls("smptehdbars", size=f"{width}x{height}", **kwargs)
 
@@ -203,7 +211,7 @@ class VirtualVideo(BaseVirtualInput):
         cls,
         height: int,
         width: int,
-        duration: float,
+        duration: Optional[float] = None,
         rate: int = 25,
         sar: Optional[int] = None,
     ):
@@ -211,7 +219,7 @@ class VirtualVideo(BaseVirtualInput):
         kwargs = {
             k: v
             for k, v in local_vars.items()
-            if k not in {"cls", "width", "height"} and v is not None
+            if k not in {"cls", "width", "height"}
         }
         return cls("smptebars", size=f"{width}x{height}", **kwargs)
 
@@ -220,7 +228,7 @@ class VirtualVideo(BaseVirtualInput):
         cls,
         width: int,
         height: int,
-        duration: float,
+        duration: Optional[float] = None,
         rate: int = 25,
         from_sierpinski: Optional[int] = None,
         type: Optional[Literal["carpet", "triangle"]] = None,
@@ -230,7 +238,7 @@ class VirtualVideo(BaseVirtualInput):
         kwargs = {
             k: v
             for k, v in local_vars.items()
-            if k not in {"cls", "width", "height", "duration"} and v is not None
+            if k not in {"cls", "width", "height", "duration"}
         }
         return cls(
             "sierpinski",
@@ -242,20 +250,38 @@ class VirtualVideo(BaseVirtualInput):
     @classmethod
     def from_ddagrab(
         cls,
-        tile_width: int,
-        tile_height: int,
-        duration: float,
+        output_idx: int,
+        draw_mouse: Optional[bool] = None,
+        framerate: Optional[bool] = None,
         rate: int = 25,
         sar: Optional[int] = None,
         preset: Optional[Literal["reference", "skintones"]] = None,
         seed: Optional[int] = None,
     ):
-
+        """
+        output_idx        <int>        ..FV....... dda output index to capture (from 0 to INT_MAX) (default 0)
+    draw_mouse        <boolean>    ..FV....... draw the mouse pointer (default true)
+    framerate         <video_rate> ..FV....... set video frame rate (default "30")
+    video_size        <image_size> ..FV....... set video frame size
+    offset_x          <int>        ..FV....... capture area x offset (from INT_MIN to INT_MAX) (default 0)
+    offset_y          <int>        ..FV....... capture area y offset (from INT_MIN to INT_MAX) (default 0)
+    output_fmt        <int>        ..FV....... desired output format (from 0 to INT_MAX) (default 8bit)
+        auto            0            ..FV....... let dda pick its preferred format
+        8bit            87           ..FV....... only output default 8 Bit format
+        bgra            87           ..FV....... only output 8 Bit BGRA
+        10bit           24           ..FV....... only output default 10 Bit format
+        x2bgr10         24           ..FV....... only output 10 Bit X2BGR10
+        16bit           10           ..FV....... only output default 16 Bit format
+        rgbaf16         10           ..FV....... only output 16 Bit RGBAF16
+    allow_fallback    <boolean>    ..FV....... don't error on fallback to default 8 Bit format (default false)
+    force_fmt         <boolean>    ..FV....... exclude BGRA from format list (experimental, discouraged by Microsoft) (default false)
+        
+        """
         local_vars = locals()
         kwargs = {
             k: v
             for k, v in local_vars.items()
-            if k not in {"cls", "tile_width", "tile_height"} and v is not None
+            if k not in {"cls", "tile_width", "tile_height"}
         }
         return cls(
             "colorchart",
@@ -269,7 +295,7 @@ class VirtualVideo(BaseVirtualInput):
         cls,
         tile_width: int,
         tile_height: int,
-        duration: float,
+        duration: Optional[float] = None,
         rate: int = 25,
         sar: Optional[int] = None,
         preset: Optional[Literal["reference", "skintones"]] = None,
@@ -280,7 +306,7 @@ class VirtualVideo(BaseVirtualInput):
         kwargs = {
             k: v
             for k, v in local_vars.items()
-            if k not in {"cls", "tile_width", "tile_height"} and v is not None
+            if k not in {"cls", "tile_width", "tile_height"}
         }
         return cls(
             "colorchart",

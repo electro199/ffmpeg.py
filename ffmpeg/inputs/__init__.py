@@ -4,14 +4,17 @@ from .streams import StreamSpecifier
 from .video import VideoFile
 from .audio import AudioFile
 from .image import ImageFile
-from .virutal_video import VirtualVideo
+from .virtual_video import VirtualVideo
 
 from .options.file_input_option import FileInputOptions
 
 __all__ = [
-    "InputFile",
-    "BaseInput",
-    "StreamSpecifier",
     "VideoFile",
+    "AudioFile",
+    "ImageFile",
+    "VirtualVideo",
+    "InputFile",
     "FileInputOptions",
+    "StreamSpecifier",
+    "BaseInput",
 ]

@@ -1,15 +1,5 @@
 """
-When evaluating an arithmetic expression, FFmpeg uses an internal formula evaluator, implemented through the libavutil/eval.h interface.
-
-An expression may contain unary, binary operators, constants, and functions.
-
-Two expressions expr1 and expr2 can be combined to form another expression "expr1;expr2". expr1 and expr2 are evaluated in turn, and the new expression evaluates to the value of expr2.
-
-The following binary operators are available: +, -, *, /, ^.
-
-The following unary operators are available: +, -.
-
-Some internal variables can be used to store and load intermediary results. They can be accessed using the ld and st functions with an index argument varying from 0 to 9 to specify which internal variable to access.
+Variety of math and logic fuctions for ffmpeg evaluation during runtime. 
 """
 
 

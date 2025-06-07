@@ -1,7 +1,7 @@
 """
 This module provides methods to build and run FFmpeg with fine control commands.
 
-For simple usecase use `utils.export`
+For simple usecase use `export`
 
 """
 
@@ -26,15 +26,15 @@ class FFmpeg:
 
         self.ffmpeg_path = "ffmpeg"
         self._inputs: list[BaseInput] = []
-        self._filter_nodes = []
+        self._filter_nodes: list[BaseFilter] = []
         self._outputs: list[OutFile] = []
-        self.node_count = 0
-        self._global_flags = []
+        self.node_count: int = 0
+        self._global_flags: list[str] = []
 
     def reset(self) -> "FFmpeg":
         """Reset all compilation data added"""
-        self._inputs: list[BaseInput] = []
-        self._filter_nodes: list[BaseFilter] = []
+        self._inputs = []
+        self._filter_nodes = []
         self.node_count = 0
         self._global_flags = ["-hide_banner"]
         return self
@@ -225,7 +225,7 @@ class FFmpeg:
         Run the FFmpeg command.
 
         Args:
-            progress_callback: 
+            progress_callback:
                 Function that can be used to track progress of the process running data can be mix of None and actual values
             progress_period: Set period at which progress_callback is called
             overwrite: overwrite the output if already exists
