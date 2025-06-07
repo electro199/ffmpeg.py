@@ -14,7 +14,7 @@ class Text(BaseFilter, TimelineEditingMixin):
             "fontsize": fontsize,
             "x": x,
             "y": y,
-            "color": color,
+            "fontcolor": color,
         }
         self.flags.update(kwargs)
 
@@ -24,3 +24,6 @@ class Text(BaseFilter, TimelineEditingMixin):
             if os.name == "nt"
             else "/usr/share/fonts/truetype/freefont/" + fontname
         )
+    #TODO add text escaping 
+    # def text_escape(self, text:str):
+    #     return text.replace()

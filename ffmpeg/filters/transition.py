@@ -1,7 +1,7 @@
 from .base import BaseFilter
 
 
-class Transition(BaseFilter):
+class XFade(BaseFilter):
     all_transitions = (
         "custom",
         "fade",
@@ -68,7 +68,10 @@ class Transition(BaseFilter):
         self, name: str, offset: float = 0, duration: float = 1, expression=None
     ):
         """
-        Combine two videos with transition.Note: requires same size and fps and aspect ration
+        Combine two videos with transition.
+        
+        Note: 
+            Requires same size and fps and aspect ratio.
         """
         super().__init__("xfade")
 

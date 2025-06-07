@@ -3,6 +3,7 @@ from .base import BaseFilter
 from .mixins.enable import TimelineEditingMixin
 from ..inputs.streams import StreamSpecifier
 
+
 class Overlay(BaseFilter, TimelineEditingMixin):
     """
     Represents an overlay filter that combines two video streams.

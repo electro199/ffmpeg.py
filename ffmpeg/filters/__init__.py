@@ -14,16 +14,33 @@ from .draw_text import Text
 from .overlay import Overlay
 from .split import Split
 from .base import BaseFilter
-from .transition import Transition
+from .transition import XFade
 from .timebase import SetTimeBase
-from .apply_filter import apply , apply2
+from .apply_filter import apply, apply2
 from .concat import Concat
 from .sar import SetSampleAspectRatio
-
+from .mixins.enable import TimelineEditingMixin
 
 __all__ = [
-    "Scale", "EvalMode", "AspectRatioMode", "ColorMatrix", "Intent", "InterlacingMode",
-    "IOChromaLocation", "IOPrimaries", "IORange",
-    "Box", "Text", "Overlay", "Split", "BaseFilter", "Transition", "SetTimeBase",
-    "apply", "apply2", "Concat", "SetSampleAspectRatio"
+    "apply",
+    "apply2",
+    "Scale",
+    "EvalMode",
+    "AspectRatioMode",
+    "ColorMatrix",
+    "Intent",
+    "InterlacingMode",
+    "IOChromaLocation",
+    "IOPrimaries",
+    "IORange",
+    "Box",
+    "Text",
+    "Overlay",
+    "Split",
+    "BaseFilter",
+    "XFade",
+    "SetTimeBase",
+    "Concat",
+    "SetSampleAspectRatio",
+    "TimelineEditingMixin",
 ]

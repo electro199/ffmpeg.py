@@ -1,11 +1,49 @@
-This library provides a Pythonic interface to FFmpeg, making it easier to handle video and audio processing.
-Below is a quick guide to get you started using FFmpeg.py with minimal code.
+# Input
 
----
+Available classes for taking media are:
+
+- `InputFile`: For Generic Inputs
+- `VideoFile`: For Video
+- `ImageFile`: For Image
+- `AudioFile`: For Audio
+- `VirtualVideo`: For Generating Videos
+
+Take input using `InputFile` it provide general input interface, use `FileInputOptions` to easily set flags or directly pass in kwargs
+
+```python
+from ffmpeg import InputFile, FileInputOptions, VideoFile
+
+# if you know flags
+clip1 = InputFile("video.mp4", ss=1, t=10)
+
+# same but easy usage but limited flags
+clip = InputFile("video.mp4", FileInputOptions(start_time=1, duration=10))
+
+# same with VideoFile easiest
+clip = VideoFile("video.mp4").subclip(1, 10)
+
+# ['-t', '10', '-ss', '1', '-i', 'video.mp4']
+```
+
+# Filters
+
+Filters can be used with [`apply`](/ffmpeg.py/api/#ffmpeg.filters.apply) or [`apply2`](/ffmpeg.py/api/#ffmpeg.filters.apply2), apply2 is for multi output filters like Split and Concat.
+
+Usage:
+
+```py
+clip = InputFile("image.png")
+clip_scaled = apply(Scale(1000, 1000), clip)
+
+```
+
+# Export
 
 FFmpeg.py comes with an easy-to-use `export` function that export the single output with multiple stream.
 
-Here quickly combine audio and video from files and output them to a single file.
+combine audio and video from files and output them to a single file.
+
+This code extracts the **video** from `video.mp4` and the **audio** from `video1.mp4`, then exports them into a single output file `out.mp4`.
 
 ```py
 from ffmpeg.inputs import VideoFile
@@ -20,8 +58,6 @@ export(
 # ffmpeg ... -i video1.mp4 -i video2.mp4 -map 0:v -map 1:a out.mp4
 ```
 
-This code extracts the **video** from `video.mp4` and the **audio** from `video1.mp4`, then exports them into a single output file `out.mp4`.
-
 Which is same as Using `FFmpeg()` with `Map` but in this way you can add flags per `Map` like encoding.
 
 ```py
@@ -35,8 +71,9 @@ FFmpeg().output(
 ).run()
 # ffmpeg ... -i video.mp4 -i video1.mp4 -map 0:v -map 1:a out.mp4
 ```
+
 !!! tip
-    This method provides a more **explicit** control flow where each stream is mapped individually. you can provide flags for `-map` context with both stream suffixed flag or without. 
+This method provides a more **explicit** control flow where each stream is mapped individually. you can provide flags for `-map` context with both stream suffixed flag or without.
 
 ---
 
@@ -75,19 +112,5 @@ The above code is easy to understand which works like:
 - `loop=True` will make a infinite loop
 - we set a `duration` so infinite loop can end
 - then set `frame_rate` at 60
-
-# Filters
-Filters can be used with  [`apply`](/ffmpeg.py/api/#ffmpeg.filters.apply) or [`apply2`](/ffmpeg.py/api/#ffmpeg.filters.apply2), apply2 is for multi output filters like Split and Concat.
-
-Usage:
-
-```py
-clip = InputFile("image.png")
-clip_scaled = apply(Scale(1000, 1000), clip)
-
-```
-
-Lets scale the image and then use it:
-
 
 At end we make a FFmpeg and add a output with two stream mapping. The `Map` add stream(s) to a output file in this way we can add multiple streams to one output, for more complex use case see Advance Usage like Filtering, Multiple outputs or what is progress_callback.

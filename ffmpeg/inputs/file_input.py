@@ -1,6 +1,8 @@
 from typing import Literal, Optional
-from .options.file_input_option import FileInputOptions
+
+from ..utils.commons import build_flags
 from .base_input import BaseInput
+from .options.file_input_option import FileInputOptions
 from .streams import StreamSpecifier
 
 
@@ -10,16 +12,17 @@ class InputFile(BaseInput):
     """
 
     def __init__(
-        self, filepath: str, options: Optional[FileInputOptions] = None
+        self, filepath: str, options: Optional[FileInputOptions] = None, **kwargs
     ) -> None:
         self.filepath = filepath
         self.options = options
+        self.flags = kwargs
 
     def build_input_flags(self) -> list[str]:
         command = []
         if self.options:
             command.extend(self.options.build())
-        command.extend(["-i", self.filepath])
+        command.extend([*build_flags(self.flags), "-i", self.filepath])
         return command
 
     def __repr__(self) -> str:
@@ -36,6 +39,6 @@ class InputFile(BaseInput):
     def get_stream(
         self,
         stream_index: int,
-        stream_name: Optional[Literal["a", "v", "s"]] = None,
+        stream_name: Optional[Literal["a", "v", "s", "d", "t", "V"]] = None,
     ) -> StreamSpecifier:
         return StreamSpecifier(self, stream_name=stream_name, stream_index=stream_index)

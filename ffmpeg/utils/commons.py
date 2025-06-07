@@ -16,8 +16,13 @@ def wrap_sqrtbrkt(text: str) -> str:
 
 def parse_value(value):
     """Convert FFmpeg progress values to appropriate data types."""
+
+    if value == "N/A":
+        return None
+
     if value.isdigit():
         return int(value)
+
     try:
         return float(value)
     except ValueError:
@@ -33,3 +38,16 @@ def build_flags(kwflags: dict[str, Any]) -> list[str]:
         flags.append(str(v))
 
     return flags
+
+
+def build_name_kvargs_format(name: str, flags: dict) -> str:
+    s = []
+    for k, v in flags.items():
+        if v is None:
+            continue
+        elif isinstance(v, bool):
+            v = int(v)
+
+        s.append(f"{k}={v}")
+
+    return f"{name}=" + (":".join(s))

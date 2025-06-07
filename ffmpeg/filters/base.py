@@ -1,5 +1,7 @@
 from typing import Union
 from ..inputs.streams import StreamSpecifier
+from ..inputs.base_input import BaseInput
+from ..utils import build_name_kvargs_format
 
 """
 -i 1.png
@@ -31,20 +33,16 @@ class BaseFilter:
         self.filter_name = filter_name
         self.flags: dict = {}  # all args
 
-        self.parent_nodes: list["BaseInput" | BaseFilter | StreamSpecifier] = []
+        self.parent_nodes: list[BaseInput | StreamSpecifier] = []
         self.parent_stream: list[int | str | None] = []
 
         self.output_count = 1
 
-    def add_input(self, node: Union["BaseInput", "BaseFilter"]):
+    def add_input(self, node: Union[BaseInput, StreamSpecifier]):
         self.parent_nodes.append(node)
 
     def build(self) -> str:
-        s = []
-        for k, v in self.flags.items():
-            s.append(f"{k}={v}")
-
-        return f"{self.filter_name}=" + (":".join(s))
+        return build_name_kvargs_format(self.filter_name, self.flags)
 
     def get_outputs(self):
         return (

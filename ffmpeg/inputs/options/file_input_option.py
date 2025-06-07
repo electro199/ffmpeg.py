@@ -7,8 +7,8 @@ class FileInputOptions(BaseOptions):
     Represents input options for FFmpeg's `-i` flag.
 
     This class allows users to specify various input-related parameters
-    for FFmpeg command generation. 
-    
+    for FFmpeg command generation.
+
     Note:
         The types for flags like `duration` are int but ffmpeg can accept multiple formats. see [ffmpeg](https://ffmpeg.org/ffmpeg-utils.html#Time-duration)
 
@@ -20,8 +20,8 @@ class FileInputOptions(BaseOptions):
 
     def __init__(
         self,
-        duration: Optional[int] = None,
-        start_time: Optional[str] = None,
+        duration: Optional[float] = None,
+        start_time: Optional[float] = None,
         format: Optional[str] = None,
         codec: Optional[str] = None,
         frame_rate: Optional[float] = None,

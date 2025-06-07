@@ -1,57 +1,103 @@
 import subprocess
+from typing import Optional, Union
 
-def ffplay(file_path, width=None, height=None, fullscreen=False, disable_audio=False, disable_video=False,
-           disable_subtitles=False, seek_position=None, duration=None, seek_by_bytes=False, seek_interval=None,
-           nodisp=False, noborder=False, alwaysontop=False, volume=None, force_format=None, window_title=None,
-           left=None, top=None, loop=None, showmode=None, video_filter=None, audio_filter=None):
+
+def ffplay(
+    file_path: str,
+    width: Optional[int] = None,
+    height: Optional[int] = None,
+    fullscreen: bool = False,
+    disable_audio: bool = False,
+    disable_video: bool = False,
+    disable_subtitles: bool = False,
+    seek_position: Optional[Union[int, float, str]] = None,
+    duration: Optional[Union[int, float]] = None,
+    seek_by_bytes: bool = False,
+    seek_interval: Optional[Union[int, float]] = None,
+    nodisp: bool = False,
+    noborder: bool = False,
+    alwaysontop: bool = False,
+    volume: Optional[int] = None,
+    force_format: Optional[str] = None,
+    window_title: Optional[str] = None,
+    left: Optional[int] = None,
+    top: Optional[int] = None,
+    loop: Optional[int] = None,
+    showmode: Optional[int] = None,
+    video_filter: Optional[str] = None,
+    audio_filter: Optional[str] = None,
+    autoexit: bool = False,
+    fbuf: bool = False,
+    sync: Optional[str] = None,
+    fast: bool = False,
+    stats: bool = False,
+    drp: bool = False,
+    fflags: Optional[str] = None,
+    vf: Optional[str] = None,
+    af: Optional[str] = None,
+    framedrop: bool = False,
+) -> None:
     """
     Run ffplay to play the specified media file with customizable options.
     """
+    args = locals()
     options = []
-    if width and height:
-        options.append(f"-x {width} -y {height}")
-    if fullscreen:
-        options.append("-fs")
-    if disable_audio:
-        options.append("-an")
-    if disable_video:
-        options.append("-vn")
-    if disable_subtitles:
-        options.append("-sn")
-    if seek_position:
-        options.append(f"-ss {seek_position}")
-    if duration:
-        options.append(f"-t {duration}")
-    if seek_by_bytes:
-        options.append("-bytes")
-    if seek_interval:
-        options.append(f"-seek_interval {seek_interval}")
-    if nodisp:
-        options.append("-nodisp")
-    if noborder:
-        options.append("-noborder")
-    if alwaysontop:
-        options.append("-alwaysontop")
-    if volume is not None:
-        options.append(f"-volume {volume}")
-    if force_format:
-        options.append(f"-f {force_format}")
-    if window_title:
-        options.append(f"-window_title \"{window_title}\"")
-    if left is not None:
-        options.append(f"-left {left}")
-    if top is not None:
-        options.append(f"-top {top}")
-    if loop is not None:
-        options.append(f"-loop {loop}")
-    if showmode:
-        options.append(f"-showmode {showmode}")
-    if video_filter:
-        options.append(f"-vf {video_filter}")
-    if audio_filter:
-        options.append(f"-af {audio_filter}")
-    
-    cmd = f"ffplay {' '.join(options)} \"{file_path}\""
+
+    # Special case for width and height
+    if args["width"] and args["height"]:
+        options.append(f"-x {args['width']} -y {args['height']}")
+
+    # Boolean flags (enabled if True)
+    flag_map = {
+        "fullscreen": "-fs",
+        "disable_audio": "-an",
+        "disable_video": "-vn",
+        "disable_subtitles": "-sn",
+        "seek_by_bytes": "-bytes",
+        "nodisp": "-nodisp",
+        "noborder": "-noborder",
+        "alwaysontop": "-alwaysontop",
+        "autoexit": "-autoexit",
+        "infbuf": "-infbuf",
+        "fast": "-fast",
+        "stats": "-stats",
+        "drp": "-drp",
+        "framedrop": "-framedrop",
+    }
+
+    # Key-value flags
+    value_map = {
+        "seek_position": "-ss",
+        "duration": "-t",
+        "seek_interval": "-seek_interval",
+        "volume": "-volume",
+        "force_format": "-f",
+        "window_title": "-window_title",
+        "left": "-left",
+        "top": "-top",
+        "loop": "-loop",
+        "showmode": "-showmode",
+        "video_filter": "-vf",
+        "audio_filter": "-af",
+        "sync": "-sync",
+        "fflags": "-fflags",
+        "vf": "-vf",
+        "af": "-af",
+    }
+
+    for key, flag in flag_map.items():
+        if args.get(key):
+            options.append(flag)
+
+    for key, flag in value_map.items():
+        val = args.get(key)
+        if val is not None:
+            if key == "window_title":
+                options.append(f'{flag} "{val}"')
+            else:
+                options.append(f"{flag} {val}")
+
+    cmd = f'ffplay -v error {" ".join(options)} "{file_path}"'
     try:
         subprocess.run(cmd, shell=True)
     except Exception as e:
