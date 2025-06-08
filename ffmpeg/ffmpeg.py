@@ -29,14 +29,14 @@ class FFmpeg:
         self._filter_nodes: list[BaseFilter] = []
         self._outputs: list[OutFile] = []
         self.node_count: int = 0
-        self._global_flags: list[str] = []
+        self._global_flags = ["-hide_banner"]   
 
     def reset(self) -> "FFmpeg":
         """Reset all compilation data added"""
         self._inputs = []
         self._filter_nodes = []
         self.node_count = 0
-        self._global_flags = ["-hide_banner"]
+        self._global_flags = []
         return self
 
     def add_global_flag(self, *flags) -> "FFmpeg":
