@@ -15,6 +15,7 @@ from .overlay import Overlay
 from .split import Split
 from .base import BaseFilter
 from .transition import XFade
+from .subtitles import Subtitles
 from .timebase import SetTimeBase
 from .apply_filter import apply, apply2
 from .concat import Concat
@@ -39,6 +40,7 @@ __all__ = [
     "Split",
     "BaseFilter",
     "XFade",
+    "Subtitles",
     "SetTimeBase",
     "Concat",
     "SetSampleAspectRatio",
