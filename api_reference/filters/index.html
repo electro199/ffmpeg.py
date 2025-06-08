@@ -620,6 +620,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ffmpeg.filters.Subtitles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subtitles
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subtitles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ffmpeg.filters.Subtitles.escape_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      escape_path
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ffmpeg.filters.Overlay" class="md-nav__link">
     <span class="md-ellipsis">
       Overlay
@@ -961,6 +985,30 @@
       XFade
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ffmpeg.filters.Subtitles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subtitles
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subtitles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ffmpeg.filters.Subtitles.escape_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      escape_path
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1975,6 +2023,73 @@ to a filter node and returns a list of all output streams from the filter.</p>
 
 
 
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="ffmpeg.filters.Subtitles" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">Subtitles</span>
+
+
+</h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">Subtitles</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fontsdir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">charenc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stream_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wrap_unicode</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            BaseFilter (ffmpeg.filters.base.BaseFilter)" href="#ffmpeg.filters.BaseFilter">BaseFilter</a></code></p>
+
+
+        <p>Draw subtitles on top of input video using the libass library.</p>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="ffmpeg.filters.Subtitles.escape_path" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">escape_path</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">escape_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>no backslash allowed
+<code>:</code> must be escaped</p>
+
+
+    </div>
+
+</div>
 
 
 
