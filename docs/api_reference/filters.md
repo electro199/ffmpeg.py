@@ -5,6 +5,7 @@
 :::ffmpeg.filters.Box
 :::ffmpeg.filters.Split
 :::ffmpeg.filters.XFade
+:::ffmpeg.filters.Subtitles
 :::ffmpeg.filters.Overlay
 :::ffmpeg.filters.Concat
 :::ffmpeg.filters.Scale
