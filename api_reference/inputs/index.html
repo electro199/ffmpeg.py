@@ -541,6 +541,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#ffmpeg.inputs.VideoFile.get_duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_duration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ffmpeg.inputs.VideoFile.get_size" class="md-nav__link">
     <span class="md-ellipsis">
       get_size
@@ -921,6 +930,15 @@
   <a href="#ffmpeg.inputs.VideoFile.from_imagefile" class="md-nav__link">
     <span class="md-ellipsis">
       from_imagefile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ffmpeg.inputs.VideoFile.get_duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_duration
     </span>
   </a>
   
@@ -1574,6 +1592,51 @@ duration and setting the frame rate.</p>
 <div class="doc doc-object doc-function">
 
 
+<h3 id="ffmpeg.inputs.VideoFile.get_duration" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">get_duration</span>
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_duration</span><span class="p">()</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Retrieves the duration of the video file.</p>
+<p>Uses FFprobe to extract duration the first video stream
+in the video file.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>float</code></td>            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>duration in seconds.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h3 id="ffmpeg.inputs.VideoFile.get_size" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">get_size</span>
 
@@ -2128,7 +2191,7 @@ the video file to be processed.</p>
     <div class="doc doc-contents ">
 
         <p>Retrieves the duration of the audio file.</p>
-<p>Uses FFprobe to extract the width and height of the first audio stream
+<p>Uses FFprobe to extract duration of the first audio stream
 in the audio file.</p>
 
 
