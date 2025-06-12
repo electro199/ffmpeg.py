@@ -6,5 +6,16 @@ build-backend = "flit_core.buildapi"
 name = "ffmpeg"
 authors = [{name = "Aman Raza"}]
 license = "GPL-3.0-or-later"
+requires-python = ">=3.11"
+readme = "README.md"
 license-files = ["LICENSE"]
 dynamic = ["version", "description"]
+
+[project.optional-dependencies]
+dev = [
+    "mkdocs",
+    "mkdocs-material",
+    "pymdown-extensions",
+    "mkdocstrings[python]",
+    "mkdocs-autorefs"
+]
