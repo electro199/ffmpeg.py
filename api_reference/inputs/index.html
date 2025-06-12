@@ -703,15 +703,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ffmpeg.inputs.VirtualVideo.from_ddagrab" class="md-nav__link">
-    <span class="md-ellipsis">
-      from_ddagrab
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#ffmpeg.inputs.VirtualVideo.from_gradients" class="md-nav__link">
     <span class="md-ellipsis">
       from_gradients
@@ -1092,15 +1083,6 @@
   <a href="#ffmpeg.inputs.VirtualVideo.from_cellauto" class="md-nav__link">
     <span class="md-ellipsis">
       from_cellauto
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ffmpeg.inputs.VirtualVideo.from_ddagrab" class="md-nav__link">
-    <span class="md-ellipsis">
-      from_ddagrab
     </span>
   </a>
   
@@ -2428,7 +2410,7 @@ This will not make a new copy until exported.</p>
               Bases: <code><span title="ffmpeg.inputs.base_virtual_input.BaseVirtualInput">BaseVirtualInput</span></code></p>
 
 
-        <p>ssdsad</p>
+        <p>Generate video with ffmpeg</p>
 
 
 
@@ -2524,46 +2506,6 @@ At each new frame a new row in the video is filled with the result of the cellul
 <div class="doc doc-object doc-function">
 
 
-<h3 id="ffmpeg.inputs.VirtualVideo.from_ddagrab" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">from_ddagrab</span>
-
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
-  </span>
-
-</h3>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">from_ddagrab</span><span class="p">(</span><span class="n">output_idx</span><span class="p">,</span> <span class="n">draw_mouse</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">framerate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">sar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <div class="highlight"><pre><span></span><code>output_idx        &lt;int&gt;        ..FV....... dda output index to capture (from 0 to INT_MAX) (default 0)
-</code></pre></div>
-<p>draw_mouse        <boolean>    ..FV....... draw the mouse pointer (default true)
-framerate         <video_rate> ..FV....... set video frame rate (default "30")
-video_size        <image_size> ..FV....... set video frame size
-offset_x          <int>        ..FV....... capture area x offset (from INT_MIN to INT_MAX) (default 0)
-offset_y          <int>        ..FV....... capture area y offset (from INT_MIN to INT_MAX) (default 0)
-output_fmt        <int>        ..FV....... desired output format (from 0 to INT_MAX) (default 8bit)
-    auto            0            ..FV....... let dda pick its preferred format
-    8bit            87           ..FV....... only output default 8 Bit format
-    bgra            87           ..FV....... only output 8 Bit BGRA
-    10bit           24           ..FV....... only output default 10 Bit format
-    x2bgr10         24           ..FV....... only output 10 Bit X2BGR10
-    16bit           10           ..FV....... only output default 16 Bit format
-    rgbaf16         10           ..FV....... only output 16 Bit RGBAF16
-allow_fallback    <boolean>    ..FV....... don't error on fallback to default 8 Bit format (default false)
-force_fmt         <boolean>    ..FV....... exclude BGRA from format list (experimental, discouraged by Microsoft) (default false)</p>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
 <h3 id="ffmpeg.inputs.VirtualVideo.from_gradients" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">from_gradients</span>
 
@@ -2628,11 +2570,96 @@ force_fmt         <boolean>    ..FV....... exclude BGRA from format list (experi
 
     <div class="doc doc-contents ">
 
-        <p>size : set video size (default "320x240")
-rate : set video rate (default "25")
-duration : set video duration (default -0.000001)
-sar : set video sample aspect ratio (from 0 to INT_MAX) (default 1/1)
-decimals : set number of decimals to show (from 0 to 17) (default 0)</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>size</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>set video size (default "320x240")</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>rate</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>set video rate (default "25")</p>
+              </div>
+            </td>
+            <td>
+                  <code>25</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>duration</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>set video duration (default -0.000001)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sar</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>set video sample aspect ratio (from 0 to INT_MAX) (default 1/1)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>decimals</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>set number of decimals to show (from 0 to 17) (default 0)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
     </div>

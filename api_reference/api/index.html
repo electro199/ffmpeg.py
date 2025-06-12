@@ -586,9 +586,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ffmpeg.ffmpeg.FFmpeg.handle_input_export" class="md-nav__link">
+  <a href="#ffmpeg.ffmpeg.FFmpeg.is_input_exporting" class="md-nav__link">
     <span class="md-ellipsis">
-      handle_input_export
+      is_input_exporting
     </span>
   </a>
   
@@ -1520,9 +1520,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ffmpeg.ffmpeg.FFmpeg.handle_input_export" class="md-nav__link">
+  <a href="#ffmpeg.ffmpeg.FFmpeg.is_input_exporting" class="md-nav__link">
     <span class="md-ellipsis">
-      handle_input_export
+      is_input_exporting
     </span>
   </a>
   
@@ -2529,8 +2529,12 @@ This fuction gather and combine all of the different part of the command.</p>
     <div class="doc doc-contents ">
 
         <p>make names for link names</p>
-<p>Note: stream_char should not be use in outlink name generation</p>
 
+
+<details class="note" open>
+  <summary>Note</summary>
+  <p>stream_char should not be use in outlink name generation</p>
+</details>
 
     </div>
 
@@ -2539,12 +2543,12 @@ This fuction gather and combine all of the different part of the command.</p>
 <div class="doc doc-object doc-function">
 
 
-<h4 id="ffmpeg.ffmpeg.FFmpeg.handle_input_export" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">handle_input_export</span>
+<h4 id="ffmpeg.ffmpeg.FFmpeg.is_input_exporting" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">is_input_exporting</span>
 
 
 </h4>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">handle_input_export</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">is_input_exporting</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2569,7 +2573,69 @@ This fuction gather and combine all of the different part of the command.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Create output for the command with map and output specific flags and the path for the output</p>
+        <p>Create output for the command with map and output specific flags and the path for the output.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>maps</code>
+            </td>
+            <td>
+                  <code><span title="ffmpeg.output.output.Map">Map</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>add output for export</p>
+              </div>
+            </td>
+            <td>
+                  <code>()</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>path</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>output file path</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>kvflags</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>flags for output</p>
+              </div>
+            </td>
+            <td>
+                  <code>{}</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
     </div>
@@ -4362,10 +4428,77 @@ to a filter node and returns a list of all output streams from the filter.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Run ffprobe with the given options on the specified file.
-:param file_path: Path to the media file.
-:param options: set ffprobe options (default extracts streams and format).
-:return: Parsed JSON output or None if an error occurs.</p>
+        <p>Run ffprobe with the given options on the specified file.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>file_path</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Path to the media file.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>options</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Iterable">Iterable</span>[<span title="str">str</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>set ffprobe options (default extracts streams and format).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Any">Any</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Parsed JSON dictionary output.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
     </div>
