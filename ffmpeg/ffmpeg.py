@@ -44,7 +44,7 @@ class FFmpeg:
         self._global_flags.extend(flags)
         return self
 
-    def handle_input_export(self, node: BaseInput | StreamSpecifier) -> bool:
+    def is_input_exporting(self, node: BaseInput | StreamSpecifier) -> bool:
         """Check if Output is Input without any filter applied"""
         if isinstance(node, StreamSpecifier):
             node = node.parent
@@ -59,7 +59,8 @@ class FFmpeg:
         """
         make names for link names
 
-        Note: stream_char should not be use in outlink name generation
+        Note:
+            stream_char should not be use in outlink name generation
         """
         return f"n{i}o{j}{stream_char}"
 
@@ -86,7 +87,7 @@ class FFmpeg:
         """Builds the final FFmpeg chains"""
 
         # If the output is Base Input return no need to add a filter
-        if self.handle_input_export(last_node):
+        if self.is_input_exporting(last_node):
             return ""
 
         self._inputs_tmp: list[BaseInput] = []
@@ -210,8 +211,16 @@ class FFmpeg:
 
         return list(map(str, command))
 
-    def output(self, *maps, path: str, **kvflags) -> "FFmpeg":
-        """Create output for the command with map and output specific flags and the path for the output"""
+    def output(self, *maps: Map, path: str, **kvflags) -> "FFmpeg":
+        """
+        Create output for the command with map and output specific flags and the path for the output.
+
+        Args:
+            maps: add output for export
+            path: output file path
+            kvflags: flags for output
+
+        """
         self._outputs.append(OutFile(maps, path, **kvflags))
         return self
 

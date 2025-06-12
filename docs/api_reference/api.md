@@ -1,4 +1,4 @@
-::: ffmpeg
+::: ffmpeg.ffmpeg
 ::: ffmpeg.filters
 ::: ffmpeg.utils
 ::: ffmpeg.exception
