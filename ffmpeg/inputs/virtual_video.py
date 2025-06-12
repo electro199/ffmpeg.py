@@ -4,7 +4,7 @@ from .base_virtual_input import BaseVirtualInput
 
 
 class VirtualVideo(BaseVirtualInput):
-    """ ssdsad"""
+    """Generate video with ffmpeg"""
 
     def __init__(
         self,
@@ -157,11 +157,12 @@ class VirtualVideo(BaseVirtualInput):
         decimals: Optional[int] = None,
     ):
         """
-        size : set video size (default "320x240")
-        rate : set video rate (default "25")
-        duration : set video duration (default -0.000001)
-        sar : set video sample aspect ratio (from 0 to INT_MAX) (default 1/1)
-        decimals : set number of decimals to show (from 0 to 17) (default 0)
+        Parameters:
+            size : set video size (default "320x240")
+            rate : set video rate (default "25")
+            duration : set video duration (default -0.000001)
+            sar : set video sample aspect ratio (from 0 to INT_MAX) (default 1/1)
+            decimals : set number of decimals to show (from 0 to 17) (default 0)
         """
         local_vars = locals()
         kwargs = {
@@ -251,42 +252,27 @@ class VirtualVideo(BaseVirtualInput):
     def from_ddagrab(
         cls,
         output_idx: int,
+        width: int,
+        height: int,
         draw_mouse: Optional[bool] = None,
-        framerate: Optional[bool] = None,
-        rate: int = 25,
-        sar: Optional[int] = None,
-        preset: Optional[Literal["reference", "skintones"]] = None,
-        seed: Optional[int] = None,
+        rate: int = 30,
+        offset_x: Optional[int] = None,
+        offset_y: Optional[int] = None,
+        output_fmt: Optional[
+            Literal["auto", "8bit", "bgra", "10bit", "x2bgr10", "16bit", "rgbaf16"]
+        ] = None,
+        allow_fallback: Optional[bool] = None,
+        force_fmt: Optional[bool] = None,
     ):
-        """
-        output_idx        <int>        ..FV....... dda output index to capture (from 0 to INT_MAX) (default 0)
-    draw_mouse        <boolean>    ..FV....... draw the mouse pointer (default true)
-    framerate         <video_rate> ..FV....... set video frame rate (default "30")
-    video_size        <image_size> ..FV....... set video frame size
-    offset_x          <int>        ..FV....... capture area x offset (from INT_MIN to INT_MAX) (default 0)
-    offset_y          <int>        ..FV....... capture area y offset (from INT_MIN to INT_MAX) (default 0)
-    output_fmt        <int>        ..FV....... desired output format (from 0 to INT_MAX) (default 8bit)
-        auto            0            ..FV....... let dda pick its preferred format
-        8bit            87           ..FV....... only output default 8 Bit format
-        bgra            87           ..FV....... only output 8 Bit BGRA
-        10bit           24           ..FV....... only output default 10 Bit format
-        x2bgr10         24           ..FV....... only output 10 Bit X2BGR10
-        16bit           10           ..FV....... only output default 16 Bit format
-        rgbaf16         10           ..FV....... only output 16 Bit RGBAF16
-    allow_fallback    <boolean>    ..FV....... don't error on fallback to default 8 Bit format (default false)
-    force_fmt         <boolean>    ..FV....... exclude BGRA from format list (experimental, discouraged by Microsoft) (default false)
-        
-        """
         local_vars = locals()
         kwargs = {
             k: v
             for k, v in local_vars.items()
-            if k not in {"cls", "tile_width", "tile_height"}
+            if k not in {"cls", "width", "height"}
         }
         return cls(
-            "colorchart",
-            patch_size=f"{tile_width}x{tile_height}",
-            _size=f"{tile_width * 6}x{tile_height * 4}",
+            "ddagrab",
+            _size=f"{width}x{height}",
             **kwargs,
         )
 

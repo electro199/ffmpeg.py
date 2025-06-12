@@ -1,18 +1,22 @@
 import subprocess
 import json
-from typing import Iterable, Optional
+from typing import Any, Iterable, Optional
 from ..exception.exceptions import FFprobeException
 
 
 def ffprobe(
-    file_path,
+    file_path: str,
     options: Optional[Iterable[str]] = None,
-):
+) -> Any:
     """
     Run ffprobe with the given options on the specified file.
-    :param file_path: Path to the media file.
-    :param options: set ffprobe options (default extracts streams and format).
-    :return: Parsed JSON output or None if an error occurs.
+
+    Args:
+        file_path: Path to the media file.
+        options: set ffprobe options (default extracts streams and format).
+
+    Returns:
+        Parsed JSON dictionary output.
     """
     flags = []
     if not options:

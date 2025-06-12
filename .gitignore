@@ -1,6 +1,6 @@
 __pycache__/
 test.py
-/.venv
+/.venv*
 /docs/_build
 /site
 dist/
